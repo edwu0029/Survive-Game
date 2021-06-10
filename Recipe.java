@@ -6,11 +6,26 @@ class Recipe {
     private Item itemProduct;
     private Defence defenceProduct;
 
-    Recipe(Player p, String[] ingredients, Item iP, Defence dP){
+    private GamePanel gamePanel;
+    private TileMap tileMap;
+    private String path;
+
+    //For Item Recipe
+    Recipe(Player p, String[] ingredients, Item iP, GamePanel gP, TileMap tM, String path){
         this.player = p;
         this.ingredients = ingredients;
         this.itemProduct = iP;
+        this.gamePanel = gP;
+        this.tileMap = tM;
+        this.path = path;
+    }
+    //For Defence Recipe
+    Recipe(String[] ingredients, Defence dP, GamePanel gP, TileMap tM, String path){
+        this.ingredients = ingredients;
         this.defenceProduct = dP;
+        this.gamePanel = gP;
+        this.tileMap = tM;
+        this.path = path;
     }
     public Item getItemProduct(){
         return itemProduct;
@@ -52,7 +67,14 @@ class Recipe {
             player.inventory.add(itemProduct);
         }
         if(defenceProduct!=null){
-            player.defences.add(defenceProduct);
+            if(defenceProduct.getName().equals("Fence Horizontal")){
+                Defence newDefence = new FenceHorizontal(gamePanel.nextEnemyID(), gamePanel, tileMap, player, path, 0, 0);
+                newDefence.setSpawnOffsetX(0);
+                newDefence.setSpawnOffsetY(0);
+                player.defences.add(newDefence);
+            }else if(defenceProduct.getName().equals("Fence Vertical")){
+                player.defences.add(new FenceVertical(gamePanel.nextEnemyID(), gamePanel, tileMap, player, path, 0, 0));
+            }
         }
 
     }

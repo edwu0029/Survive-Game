@@ -55,6 +55,12 @@ abstract class Defence implements Drawable{
     public void setY(int newY){
         y = newY;
     }
+    public void setSpawnOffsetX(int newValue){
+        spawnOffsetX = newValue;
+    }
+    public void setSpawnOffsetY(int newValue){
+        spawnOffsetY = newValue;
+    }
     public int getX(){
         return x+offsetX;
     }

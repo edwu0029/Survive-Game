@@ -38,12 +38,14 @@ class GamePanel extends JPanel{
 
         //Add other panels TEMPORARY
         String[] fenceIngredients = {"Wood", "Wood"};
-        Recipe fenceHorizontalRecipe = new Recipe(player, fenceIngredients, null, new FenceHorizontal(this.nextDefenceID(), this, tileMap, player, path, 0, 0));
+        Defence fenceHorizontal = new FenceHorizontal(this.nextDefenceID(), this, tileMap, player, path, 0, 0);
+        Recipe fenceHorizontalRecipe = new Recipe(fenceIngredients, fenceHorizontal, this, tileMap, path);
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         recipes.add(fenceHorizontalRecipe);
 
         String[] fenceIngredients2 = {"Wood", "Metal"};
-        Recipe fenceVerticalRecipe = new Recipe(player, fenceIngredients2, null, new FenceVertical(this.nextDefenceID(), this, tileMap, player, path, 0, 0));
+        Defence fenceVertical = new FenceHorizontal(this.nextDefenceID(), this, tileMap, player, path, 0, 0);
+        Recipe fenceVerticalRecipe = new Recipe(fenceIngredients2, fenceVertical, this, tileMap, path);
         recipes.add(fenceVerticalRecipe);
 
         CraftingPanel craftingPanel = new CraftingPanel(panelManager, player, recipes);
