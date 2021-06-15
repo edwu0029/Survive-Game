@@ -36,7 +36,7 @@ class BlueLaser extends Projectile{
      * @param y The y-coordinate of the top-left corner of this blue laser relative to the window.
      * @param damage The amount of damage this blue laser does.
      */
-    BlueLaser(Level level, int orientation, int direction, int x, int y, int damage){
+    BlueLaser(Level level, int orientation, int direction, int x, int y){
         super(level, x, y);
         this.level = level;
         this.orientation = orientation;
@@ -45,8 +45,9 @@ class BlueLaser extends Projectile{
         this.path = level.getPath();
         loadSprites();
         super.setBoundingBox(width, height);
-        //TEMPORARY
+        //All blue lasers have a damage value fo 100
         super.setDamage(100);
+        
         if(orientation==0){ //Vertical
             super.setVelocityX(0);
             super.setVelocityY(10*direction);

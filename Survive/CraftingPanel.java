@@ -151,8 +151,6 @@ class CraftingPanel extends JPanel{
      */
     public void craftRecipe(){
         if(recipes.get(currentIndex).checkCraftable()){
-            //DEBUG
-            System.out.println("Crafted");
             recipes.get(currentIndex).craft();
         }
     }

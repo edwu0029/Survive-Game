@@ -96,7 +96,6 @@ class TileMap implements Drawable{
     public Tile[][] getTileMapArray(){
         return tileMap;
     }
-    //TEMPORARY
     /**
      * checkCollision
      * Checks whether a specified bpx has collided with any valid tiles. Note that in this case, valid tile
@@ -107,7 +106,8 @@ class TileMap implements Drawable{
         //Only need to check collision with non-passable tiles
         for(int i = 0;i<height;i++){
             for(int j = 0;j<width;j++){
-                if((!tileMap[i][j].getPassable() || tileMap[i][j].getHasDefence()) && tileMap[i][j].checkCollision(box)){
+                //Not valid if the tile is non-passable
+                if((!tileMap[i][j].getPassable() && tileMap[i][j].checkCollision(box))){
                     //Return true since collision has occured
                     return true;
                 }
@@ -117,14 +117,14 @@ class TileMap implements Drawable{
         return false;
     }
     /**
-     * pointInTile
+     * pointInTileRelative
      * Checks if a certain point is inside of a valid tile and returns the reference to that tile. Note
      * that in this case, valid tile means any tile that is passable and doesn't have a defence on it.
      * @param x The x-coordinate of the point relative to the window
      * @param y The y-coordinate of the point relative to the window
      * @return The reference to the tile, null otherwise.
      */
-    public Tile pointInTile(int x, int y){
+    public Tile pointInTileRelative(int x, int y){
         for(int i = 0;i<height;i++){
             for(int j = 0;j<width;j++){
                 //Note: All tiles have a height and width of 64 pixels
@@ -132,6 +132,30 @@ class TileMap implements Drawable{
                 //check each tile's relattive coordinates.
                 if(tileMap[i][j].getRelativeX()<=x && x<=tileMap[i][j].getRelativeX()+64 &&
                     tileMap[i][j].getRelativeY()<=y && y<=tileMap[i][j].getRelativeY()+64 &&
+                    tileMap[i][j].getPassable() && !tileMap[i][j].getHasDefence()){
+                    return tileMap[i][j];
+                }
+            }
+        }
+        //Return null if no valid tile is found
+        return null;
+    }
+    /**
+     * pointInTileAbsolute
+     * Checks if a certain point is inside of a valid tile and returns the reference to that tile. Note
+     * that in this case, valid tile means any tile that is passable and doesn't have a defence on it.
+     * @param x The x-coordinate of the point absolutly.
+     * @param y The y-coordinate of the point absolutly.
+     * @return The reference to the tile, null otherwise.
+     */
+    public Tile pointInTileAbsolute(int x, int y){
+        for(int i = 0;i<height;i++){
+            for(int j = 0;j<width;j++){
+                //Note: All tiles have a height and width of 64 pixels
+                //Also note that the point from the parameters is absolute, hence we need to 
+                //check each tile's absolute coordinates.
+                if(tileMap[i][j].getAbsoluteX()<=x && x<=tileMap[i][j].getAbsoluteX()+64 &&
+                    tileMap[i][j].getAbsoluteY()<=y && y<=tileMap[i][j].getAbsoluteY()+64 &&
                     tileMap[i][j].getPassable() && !tileMap[i][j].getHasDefence()){
                     return tileMap[i][j];
                 }
@@ -156,7 +180,10 @@ class TileMap implements Drawable{
             }
         }
     }
-    //TEMPORARY
+    /**
+     * loadTileDetails
+     * Loads the tile map details from the .txt file called GameMap.txt
+     */
     public void loadTileDetails(){
         try{
             File gameMapFile = new File(path+"GameMap.txt");

@@ -20,8 +20,7 @@ class MainFrame extends JFrame{
      * A constructor that creates a main frame object that can be used to run various panels.
      */
     MainFrame(){
-        //TEMPORARY
-        super("<Game Name>");
+        super("Survive");
         this.frame = this;
 
         //Configure window size (1080 x 1080)

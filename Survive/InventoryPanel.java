@@ -97,66 +97,6 @@ class InventoryPanel extends JPanel{
           }
     }
     /**
-     * painComponent
-     * A method that draws the necessary element of this panel on screen.
-     * @param g The graphics object in which the elements of this panel are to be drawn on.
-     */
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-
-        //Draw backgrounds
-        g.setColor(new Color(130, 82, 0));
-        g.fillRect(0, 0, 1080, 1080);
-        g.setColor(new Color(89, 56, 0));
-        g.fillRect(10, 10, 1060-15, 1060-15);
-        g.setColor(new Color(130, 82, 0));
-        g.fillRect(40, 40, 980, 1080);
-
-        //Reset color back to black
-        g.setColor(new Color(0, 0, 0));
-
-        //Draw Heading
-        g.setColor(new Color(0, 0, 0));
-        g.setFont(new Font("Arial", Font.PLAIN, 40));
-        g.drawString("Inventory", 450, 110);
-        
-        //Draw Left columns
-        for(int i = 0;i<rows;i++){
-            g.drawRect(80, 64*i+200, 430, 64);
-        }
-        //Draw Right columns
-        for(int i = 0;i<rows;i++){
-            g.drawRect(550, 64*i+200, 430, 64);
-        }
-
-        //Display items in player's inventory
-        g.setFont(new Font("Arial", Font.PLAIN, 40));
-        for(int i = 0;i<playerItems.size();i++){
-            Item currentItem = playerItems.get(i);
-            g.drawString(currentItem.getType(), 80, 64*i+264);
-        }
-
-        //Display defences in player's inventory
-        g.setFont(new Font("Arial", Font.PLAIN, 40));
-        for(int i = 0;i<playerDefences.size();i++){
-            Defence currentDefence = playerDefences.get(i);
-            g.drawString(currentDefence.getType(), 550, 64*i+264);
-        }
-
-        //Draw a green rectangle for the selectedd item/defence
-        g.setColor(new Color(0, 255, 0));
-        if(selectedColumn==0){ //Items
-            g.drawRect(80, 64*selectedRow+200, 430, 64);
-        }else if(selectedColumn==1){ //Defence
-            g.drawRect(550, 64*selectedRow+200, 430, 64);
-        }
-
-        //Draw buttons
-        backButton.draw(g);
-        consumeButton.draw(g);
-
-    }
-    /**
      * getBackButton
      * Returns a reference to the back button for this inventory panel.
      * @return A reference to the back button for this inventory panel.
@@ -212,5 +152,74 @@ class InventoryPanel extends JPanel{
             playerDefences.remove(selectedRow);
             panelManager.setActivePanel("PlacingPanel");
         }
+    }
+    /**
+     * painComponent
+     * A method that draws the necessary element of this panel on screen.
+     * @param g The graphics object in which the elements of this panel are to be drawn on.
+     */
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+
+        //Draw backgrounds
+        g.setColor(new Color(130, 82, 0));
+        g.fillRect(0, 0, 1080, 1080);
+        g.setColor(new Color(89, 56, 0));
+        g.fillRect(10, 10, 1060-15, 1060-15);
+        g.setColor(new Color(130, 82, 0));
+        g.fillRect(40, 40, 980, 1080);
+
+        //Reset color back to black
+        g.setColor(new Color(0, 0, 0));
+
+        //Draw Heading
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        g.drawString("Inventory", 450, 110);
+
+        //Draw subheadings
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        g.drawString("Items", 250, 170);
+
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        g.drawString("Defences", 680, 170);
+        
+        //Draw Left columns
+        for(int i = 0;i<rows;i++){
+            g.drawRect(80, 64*i+200, 430, 64);
+        }
+        //Draw Right columns
+        for(int i = 0;i<rows;i++){
+            g.drawRect(550, 64*i+200, 430, 64);
+        }
+
+        //Display items in player's inventory
+        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        for(int i = 0;i<playerItems.size();i++){
+            Item currentItem = playerItems.get(i);
+            g.drawString(currentItem.getType(), 80, 64*i+264);
+        }
+
+        //Display defences in player's inventory
+        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        for(int i = 0;i<playerDefences.size();i++){
+            Defence currentDefence = playerDefences.get(i);
+            g.drawString(currentDefence.getType(), 550, 64*i+264);
+        }
+
+        //Draw a green rectangle for the selectedd item/defence
+        g.setColor(new Color(0, 255, 0));
+        if(selectedColumn==0){ //Items
+            g.drawRect(80, 64*selectedRow+200, 430, 64);
+        }else if(selectedColumn==1){ //Defence
+            g.drawRect(550, 64*selectedRow+200, 430, 64);
+        }
+
+        //Draw buttons
+        backButton.draw(g);
+        consumeButton.draw(g);
+
     }
 }

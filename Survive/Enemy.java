@@ -57,9 +57,9 @@ abstract class Enemy implements Drawable{
         this.ID = level.getNextEnemyID();
         this.x = x;
         this.y = y;
-        //Set up spawn offsets
-        this.spawnOffsetX = tileMap.getOffsetX();
-        this.spawnOffsetY = tileMap.getOffsetY();
+        //Set up spawn offsets; all enemies have spawn offsets of 0
+        this.spawnOffsetX = 0;
+        this.spawnOffsetY = 0;
 
         this.previousTime = System.currentTimeMillis();
         this.attackDelay = 0.0;

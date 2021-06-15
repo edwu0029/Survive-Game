@@ -293,19 +293,20 @@ class Player implements Drawable, Moveable{
      * A method that intiates for this player to attack based on its current mode.
      */
     public void attack(){
-        if(attackDelay>=0.75 && mode==2){
+        //Check for attack delay of 0.3 seconds
+        if(attackDelay>=0.3 && mode==2){
             //Create blue laser
             if(orientation==0 && direction==-1){ //Facing Up
-                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x+7, y, 5);
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x+7, y);
                 level.getProjectiles().add(blueLaser);
             }else if(orientation==0 && direction==1){ //Facing Down
-                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x-7, y, 5);
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x-7, y);
                 level.getProjectiles().add(blueLaser);
             }else if(orientation==1 && direction==-1){ //Facing Left
-                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y-7, 5);
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y-7);
                 level.getProjectiles().add(blueLaser);
             }else if(orientation==1 && direction==1){ //Facing Right
-                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y+7, 5);
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y+7);
                 level.getProjectiles().add(blueLaser);
             }
             //Reset attack delay
@@ -379,7 +380,6 @@ class Player implements Drawable, Moveable{
     public void moveUp(){
         setOrientation('W');
         //Move if there is NO Collision with non-passable tile or defence
-
         if(!tileMap.checkCollision(topBoundingBox) && (gamePanel.checkDefenceCollision(topBoundingBox)==-1) ){
             tileMap.translate(0, moveSpeed);
         }

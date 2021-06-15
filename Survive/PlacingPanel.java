@@ -56,16 +56,15 @@ class PlacingPanel extends JPanel{
      */
     public void animate(){
         while(true){
-            //delay
-            
-            //TEMPORARY
+            //Get Mouse information
             Point p = MouseInfo.getPointerInfo().getLocation();
+            //Makes mouse coordinates RELATIVE TO WINDOW instead of to the entire screen
             SwingUtilities.convertPointFromScreen(p, mainFrame.getComponent(0));
             mouseX = (int)p.getX();
             mouseY = (int)p.getY();
-            // System.out.println(mouseX+" "+mouseY);
-            hoveringTile = tileMap.pointInTile(mouseX, mouseY);
+            hoveringTile = tileMap.pointInTileRelative(mouseX, mouseY);
             
+            //delay
             try{
                 Thread.sleep(40);
             }catch(Exception exc){

@@ -27,6 +27,7 @@ class GamePanel extends JPanel{
     private String path;
 
     private boolean pause;
+    private double zombieSpawnDelay;
 
     //References to lists stored in leve
     private ArrayList<Projectile> projectiles;
@@ -91,7 +92,7 @@ class GamePanel extends JPanel{
         //Set up times
         this.previousTime = System.currentTimeMillis();
         
-        this.dayTime = 180.0; //Day time lasts 3 minutes = 180 seconds
+        this.dayTime = 60.0; //Day time lasts 1 minutes = 60 seconds
         this.nightTime = 60.0; //Night time lasts 1 minute = 60 seconds
 
         //Add Key Listener
@@ -148,6 +149,9 @@ class GamePanel extends JPanel{
                     dayTime-=timeDifference;
                 }else if(nightTime>=0.0){ //If it is night time
                     nightTime-=timeDifference;
+
+                    //UpdateZombie spawn delay
+                    zombieSpawnDelay+=timeDifference;
                 }
                 //Round values to 2 decimal place
                 dayTime = Math.round(dayTime*100.0)/100.0;
@@ -155,6 +159,13 @@ class GamePanel extends JPanel{
 
                 //Make update previousTime
                 previousTime = currentTime;
+
+                //Spawn zombie if delay reaches 5 seconds
+                if(zombieSpawnDelay>=5.0){
+                    spawnRandomZombie();
+                    //Reset delay
+                    zombieSpawnDelay = 0.0;
+                }
 
                 //Check for win
                 if(nightTime<=0.0){
@@ -172,6 +183,27 @@ class GamePanel extends JPanel{
             //Repaint request
             this.repaint();
           }   
+    }
+    /**
+     * spawnRandomZombie
+     * Spawns a zombie at a random location in the map. This method also makes sure that this zombie is spawned
+     * at a valid position (Not on a non-passable wall or defence).
+     */
+    public void spawnRandomZombie(){
+        boolean validSpawnPoint = false;
+        //Do while until valid spawn point is generated
+        do{
+            //generate random number between 2 and 15 for row
+            int randomRow = (int)Math.floor(Math.random()*(14)+2);
+            //generate random number between 2 and 25 for column
+            int randomColumn = (int)Math.floor(Math.random()*(24)+2);
+            //Check valid spawn point
+            if(tileMap.pointInTileAbsolute((randomColumn*64)+32, (randomRow*64)+32)!=null){
+                //Create zombie with the randomly generated positon
+                enemies.add(new Zombie(level, (randomColumn*64)+32, (randomRow*64)+32)); 
+                validSpawnPoint = true;
+            }
+        }while(!validSpawnPoint);
     }
     /**
      * togglePause
@@ -316,7 +348,7 @@ class GamePanel extends JPanel{
         }
 
         //Draw night tint
-        tintAlpha = (float) ((180.0-dayTime)/180.0)*0.4f;
+        tintAlpha = (float) ((60.0-dayTime)/60.0)*0.4f;
         //Set transparency
         g2d.setComposite(AlphaComposite.SrcOver.derive(tintAlpha));
         g.setColor(new Color(0, 0, 0));

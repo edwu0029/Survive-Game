@@ -42,7 +42,6 @@ class Level{
      */
     Level(MainFrame mainFrame, PanelManager panelManager){
         //Load data
-        loadMapData();
         loadPath();
 
         this.mainFrame = mainFrame;
@@ -67,19 +66,22 @@ class Level{
         //Create goal
         defences.add(new Goal(this, 1088, 960));
 
-        // enemies.add(new Zombie(this, 500, 96, 96, 100));
-        // enemies.add(new Zombie(this, 500, 160, 96, 100));
-        // enemies.add(new Zombie(this, 500, 224, 96, 100));
+        enemies.add(new Tree(this, 200, 300));
+        enemies.add(new Tree(this, 400, 400));
+        enemies.add(new Tree(this, 850, 500));
+        enemies.add(new Tree(this, 1000, 600));
 
-        enemies.add(new Tree(this, 200, 200, 500));
-        enemies.add(new Tree(this, 200, 300, 500));
-        enemies.add(new Tree(this, 200, 400, 500));
-
-        items.add(new BlueLaserGun(this, 1000, 600));
+        //Create items that are on the ground
+        items.add(new BlueLaserGun(this, 1200, 600));
+        items.add(new Wood(this, 300, 1000));
+        items.add(new Wood(this, 400, 1000));
         items.add(new Wood(this, 300, 1000));
         items.add(new Wood(this, 400, 1000));
         items.add(new Rock(this, 640, 320));
         items.add(new Metal(this, 504, 320));
+        items.add(new Metal(this, 504, 320));
+        items.add(new Metal(this, 400, 1000));
+        items.add(new Metal(this, 504, 670));
 
         //Set game panel as active
         panelManager.setActivePanel("GamePanel");
@@ -246,13 +248,5 @@ class Level{
      */
     public ArrayList<Defence> getDefences(){
         return defences;
-    }
-
-    /**
-     * loadMapData
-     * Loads the map data of this level from its corresponding .txt file.
-     */
-    public void loadMapData(){
-        //TEMPORARY
     }
 }

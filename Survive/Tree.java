@@ -36,14 +36,16 @@ class Tree extends Enemy{
      * @param x The x-coordinate of the top-left corner of this tree relative to the window.
      * @param y The y-coordinate of the top-left corner of this tree relative to the window.
      */
-    Tree(Level level, int maxHealth, int x, int y){
-        super(level, 200, x, y);
+    Tree(Level level, int x, int y){
+        //All trees have a max health of 100
+        super(level, 100, x, y);
         this.level = level;
         this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.player = level.getPlayer();
         this.path = level.getPath();
 
+        //All trees have a damage of 10
         this.damage = 10;
 
         loadSprites();
@@ -78,8 +80,6 @@ class Tree extends Enemy{
      * An overwridden method form the Enemy class that intiates the attack of this tree enemy.
      */
     public void attack(){
-        //DEBUG
-        System.out.println("Attack");
         player.getHealthManager().takeDamage(damage);
     }
     /**

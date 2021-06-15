@@ -82,17 +82,18 @@ class InstructionsPanel extends JPanel{
         g.drawString("A zombie apocalpyse has broken out! After travelling around, you find a computer in a house.", 100, 100);
         g.drawString("However, you must first survive the night. For some mysterious reason, the zombies have", 100, 120);
         g.drawString("been attracted to your computer! With it being the last chance of hope, protect", 100, 140);
-        g.drawString("your computer and surivive!", 100, 160);
+        g.drawString("your computer and survive!", 100, 160);
 
         g.drawString("Use the 'W', 'A', 'S', 'D' keys to move up, left, down, right respectively.", 100, 200);
-        g.drawString("Press 'I' and 'C' to switch to the Inventory and Crafting menus respsectively.", 100, 220);
+        g.drawString("Press 'F' to pick up items on the map.", 100, 220);
+        g.drawString("Press 'I' and 'C' to switch to the Inventory and Crafting menus respsectively.", 100, 240);
 
-        g.drawString("To select other items in your inventory, use the arrow keys.", 100, 260);
+        g.drawString("To select other items in your inventory, use the arrow keys.", 100, 280);
 
-        g.drawString("Press '1' and '2' to toggle between player modes.", 100, 300);
-        g.drawString("Note you must pick up and consume a blue laser gun to use mode 2.", 100, 320);
+        g.drawString("Press '1' and '2' to toggle between player modes.", 100, 320);
+        g.drawString("Note you must pick up and consume a blue laser gun to use mode 2.", 100, 340);
         
-        g.drawString("Click the left mouse button to shoot lasers if in mode 2.", 100, 360);
+        g.drawString("Click the left mouse button to shoot lasers if in mode 2.", 100, 380);
         
         //Display back button
         backButton.draw(g);

@@ -25,8 +25,8 @@ class Goal extends Defence{
      * @param y The y-coordinate of the top-left corner of this goal relative to the window.
      */
     Goal(Level level, int x, int y){
-        //All fences have a maximum health of 300
-        super(level, "Goal", x, y, 300);
+        //All fences have a maximum health of 1000
+        super(level, "Goal", x, y, 1000);
         this.level = level;
         this.path = level.getPath();
         loadSprites();

@@ -59,8 +59,7 @@ class Tile implements Drawable{
         this.groupNumber = groupNumber;
         this.tileNumber = tileNumber;
 
-        //TEMPORARY
-        //Find better way to do this
+        //All tiles in group 00 and 04 are non-passable
         if(groupNumber.equals("00") || groupNumber.equals("04")){
             this.passable = false;
         }else{
@@ -171,7 +170,6 @@ class Tile implements Drawable{
     public int getRelativeY(){
         return offsetY+row*64;
     }
-    //TEMPORARY
     /**
      * checkCollision
      * Checks if a specifed box has collided with the bounding box of this tile
