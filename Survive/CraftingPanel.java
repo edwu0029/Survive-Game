@@ -30,6 +30,10 @@ class CraftingPanel extends JPanel{
     private BufferedImage background;
     private BufferedImage arrow;
 
+    //Buttons
+    private GraphicsButton backButton;
+    private GraphicsButton craftButton;
+
     /**
      * CraftingPanel
      * A constructor that creates a CraftingPanel for a specified level.
@@ -38,7 +42,7 @@ class CraftingPanel extends JPanel{
     CraftingPanel(Level level){
         this.level = level;
         //Set this as the crafting panel for the level
-        level.setCraftingPanel(this);
+        level.getPanelManager().setCraftingPanel(this);
 
         this.player = level.getPlayer();
         this.recipes = level.getRecipes();
@@ -50,8 +54,23 @@ class CraftingPanel extends JPanel{
         this.currentIndex = 0;
         currentIngredients = recipes.get(currentIndex).getIngredients();
 
+        //Set up buttons
+        this.backButton = new GraphicsButton(60, 930, 200, 50);
+        this.backButton.setColor(new Color(255, 0, 0));
+        this.backButton.setText("Back");
+        this.backButton.setTextColor(new Color(255, 255, 255));
+        this.backButton.setFont("Arial", 20);
+
+        this.craftButton = new GraphicsButton(790, 930, 200, 50);
+        this.craftButton.setColor(new Color(0, 128, 0));
+        this.craftButton.setText("Craft");
+        this.craftButton.setTextColor(new Color(255, 255, 255));
+        this.craftButton.setFont("Arial", 20);
+
+        //Add mouse listeners
         CraftingMouseListener mouseListener = new CraftingMouseListener(level);
         this.addMouseListener(mouseListener);
+        //Add key listener
         CraftingKeyListener keyListener = new CraftingKeyListener(level);
         this.addKeyListener(keyListener);
 
@@ -95,14 +114,35 @@ class CraftingPanel extends JPanel{
         }
     }
     /**
+     * getBackButton
+     * Returns a reference to the back button for this crafting panel.
+     * @return A reference to the back button for this crafting panel.
+     */
+    public GraphicsButton getBackButton(){
+        return backButton;
+    }
+    /**
+     * getCraftButton
+     * Returns a reference to the craft button for this crafting panel.
+     * @return A reference to the craft button for this crafting panel.
+     */
+    public GraphicsButton getCraftButton(){
+        return craftButton;
+    }
+    /**
      * nextRecipe
      * A method that changes the active(displayed) recipe to the next recipe in the arraylist.
      */
     public void nextRecipe(){
-        currentIndex++;
-        if(currentIndex>=recipes.size()){
-            currentIndex = 0;
-        }
+        currentIndex = Math.min(recipes.size()-1, currentIndex+1);
+        currentIngredients = recipes.get(currentIndex).getIngredients();
+    }
+    /**
+     * previousRecipe
+     * A method that changes the active(displayed) recipe to the previous recipe in the arraylist.
+     */
+    public void previousRecipe(){
+        currentIndex = Math.max(0, currentIndex-1);
         currentIngredients = recipes.get(currentIndex).getIngredients();
     }
     /**
@@ -153,6 +193,10 @@ class CraftingPanel extends JPanel{
             g.drawRect(650, 264, 300, 64);
             g.drawString(recipes.get(currentIndex).getDefenceProduct().getType(), 650, 328);
         }
+
+        //Draw buttons
+        backButton.draw(g);
+        craftButton.draw(g);
 
     }
 }

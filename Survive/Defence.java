@@ -8,7 +8,7 @@ import java.rmi.MarshalException;
  * @author Edward Wu
  * @version 1.0, June 11, 2021
  */
-class Defence implements Drawable{
+abstract class Defence implements Drawable{
 
     /*-----References to other objects-----*/
     private Level level;
@@ -49,7 +49,7 @@ class Defence implements Drawable{
      */
     Defence(Level level, String type, int x, int y, int maxHealth){
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.player = level.getPlayer();
 
@@ -91,6 +91,14 @@ class Defence implements Drawable{
         x = newX;
     }
     /**
+     * getAbsoluteX
+     * Returns the absolute x-coordinate of the top-left corner of this defence.
+     * @return Returns the absolute x-coordinate of the top-left corner of this defence.
+     */
+    public int getAbsoluteX(){
+        return x;
+    }
+    /**
      * getRelativeX
      * Returns the x-coordinate of the top-left corner of this defence relative
      * to the window.
@@ -99,6 +107,7 @@ class Defence implements Drawable{
     public int getRelativeX(){
         return x+offsetX;
     }
+    
     /**
      * setY
      * Sets the absolute y-coordinate of the top-left corner of this defence.
@@ -106,6 +115,14 @@ class Defence implements Drawable{
      */
     public void setY(int newY){
         y = newY;
+    }
+    /**
+     * getAbsoluteY
+     * Returns the absolute y-coordinate of the top-left corner of this defence.
+     * @return Returns the absolute y-coordinate of the top-left corner of this defence.
+     */
+    public int getAbsoluteY(){
+        return y;
     }
     /**
      * getRelativeY
@@ -187,10 +204,8 @@ class Defence implements Drawable{
     //From Drawable interface
     /**
      * draw
-     * An overwritten method from the Drawable interface that draws this defence on screen.
+     * An overwritten abstract method from the Drawable interface that draws this defence on screen.
      * @param g The graphics object that this defence is to be drawn on.
      */
-    public void draw(Graphics g){
-        g.drawRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
-    }
+    abstract public void draw(Graphics g);
 }

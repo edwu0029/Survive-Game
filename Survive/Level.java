@@ -12,13 +12,9 @@ class Level{
 
     //Frame Variables
     private MainFrame mainFrame;
-
-    //Panel Variables
-    private GamePanel gamePanel;
-    private InventoryPanel inventoryPanel;
-    private CraftingPanel craftingPanel;
-    private PlacingPanel placingPanel;
-    private GameOverPanel gameOverPanel;
+    
+    //Panel Manager
+    private PanelManager panelManager;
 
     //Objects in game
     private Player player;
@@ -44,12 +40,13 @@ class Level{
      * A constructor that creates a level.
      * @param mainFrame The main frame(JFrame) for this game.
      */
-    Level(MainFrame mainFrame){
+    Level(MainFrame mainFrame, PanelManager panelManager){
         //Load data
         loadMapData();
         loadPath();
 
         this.mainFrame = mainFrame;
+        this.panelManager = panelManager;
         
         //In the beginning, all ID counters start at 0
         //These IDs help identify objects of the same type from each other
@@ -65,18 +62,19 @@ class Level{
         projectiles = new ArrayList<Projectile>();
 
         //Create Game Panel
-        this.gamePanel = new GamePanel(this);
+        new GamePanel(this);
 
-        enemies.add(new Zombie(this, 500, 200, 200, 100));
-        enemies.add(new Zombie(this, 500, 400, 200, 100));
-        enemies.add(new Zombie(this, 500, 600, 200, 100));
-        enemies.add(new Zombie(this, 500, 800, 200, 100));
-        enemies.add(new Tree(this, 200, 100, 500));
-        enemies.add(new Tree(this, 200, 100, 500));
-        enemies.add(new Tree(this, 200, 100, 500));
-        enemies.add(new Tree(this, 200, 100, 500));
+        //Create goal
+        defences.add(new Goal(this, 1088, 960));
 
-        items.add(new BlueLaserGun(this, 500, 200));
+        // enemies.add(new Zombie(this, 500, 96, 96, 100));
+        // enemies.add(new Zombie(this, 500, 160, 96, 100));
+        // enemies.add(new Zombie(this, 500, 224, 96, 100));
+
+        enemies.add(new Tree(this, 200, 200, 500));
+        enemies.add(new Tree(this, 200, 300, 500));
+        enemies.add(new Tree(this, 200, 400, 500));
+
         items.add(new BlueLaserGun(this, 1000, 600));
         items.add(new Wood(this, 300, 1000));
         items.add(new Wood(this, 400, 1000));
@@ -84,7 +82,7 @@ class Level{
         items.add(new Metal(this, 504, 320));
 
         //Set game panel as active
-        setActivePanel("GamePanel");
+        panelManager.setActivePanel("GamePanel");
     }
     /**
      * loadPath
@@ -121,86 +119,13 @@ class Level{
         return mainFrame;
     }
     /**
-     * setGamePanel
-     * Sets the reference of this level's GamePanel(JPanel).
-     * @param newGamePanel The new GamePanel object.
+     * getPanelManager
+     * Returns the reference to this level's panel manager.
+     * @return The reference to this level's panel manager.
      */
-    public void setGamePanel(GamePanel newGamePanel){
-        gamePanel = newGamePanel;
+    public PanelManager getPanelManager(){
+        return panelManager;
     }
-    /**
-     * getGamePanel
-     * Returns the reference to this level's GamePanel(JPanel).
-     * @return A reference to this level's GamePanel(JPanel).
-     */
-    public GamePanel getGamePanel(){
-        return gamePanel;
-    }
-    /**
-     * setInventoryPanel
-     * Sets the reference of this level's InventoryPanel(JPanel).
-     * @param newInventoryPanel The new InventoryPanel object.
-     */
-    public void setInventoryPanel(InventoryPanel newInventoryPanel){
-        inventoryPanel = newInventoryPanel;
-    }
-    /**
-     * getInventoryPanel
-     * Returns the reference to this level's InventoryPanel(JPanel).
-     * @return A reference to this level's InventoryPanel(JPanel).
-     */
-    public InventoryPanel getInventoryPanel(){
-        return inventoryPanel;
-    }
-    /**
-     * setCraftingPanel
-     * Sets the reference of this level's CraftingPanel(JPanel).
-     * @param newCraftingPanel The new CraftingPanel object
-     */
-    public void setCraftingPanel(CraftingPanel newCraftingPanel){
-        craftingPanel = newCraftingPanel;
-    }
-    /**
-     * getCraftingPanel
-     * Returns the reference to this level's CraftingPanel(JPanel).
-     * @return A reference to this level's CraftingPanel(JPanel).
-     */
-    public CraftingPanel getCraftingPanel(){
-        return craftingPanel;
-    }
-    /**
-     * setPlacingPanel
-     * Sets the reference of this level's PlacingPanel(JPanel).
-     * @param newPlacingPanel The new PlacingPanel object.
-     */
-    public void setPlacingPanel(PlacingPanel newPlacingPanel){
-        placingPanel = newPlacingPanel;
-    }
-    /**
-     * getPlacingPanel
-     * Returns the reference to this level's placingPanel(JPanel).
-     * @return A reference to this level's placingPanel(JPanel).
-     */
-    public PlacingPanel getPlacingPanel(){
-        return placingPanel;
-    }
-    /**
-     * setGameOverPanel
-     * Sets the reference of this level's GameOverPanel(JPanel).
-     * @param newGameOverPanel The new GameOverPanel object.
-     */
-    public void setGameOverPanel(GameOverPanel newGameOverPanel){
-        gameOverPanel = newGameOverPanel;
-    }
-    /**
-     * getGameOverPanel
-     * Returns the reference to this level's gameOverPanel(JPanel).
-     * @return A reference to this level's gameOverPanel(JPanel).
-     */
-    public GameOverPanel getGameOverPanel(){
-        return gameOverPanel;
-    }
-
     /**
      * setPlayer
      * Sets the reference of this level's Player object.
@@ -322,44 +247,12 @@ class Level{
     public ArrayList<Defence> getDefences(){
         return defences;
     }
-    /**
-     * setActivePanel
-     * Sets a certian panel to be visible on the MainFrame of the game
-     * @param panelType The type of panel that is to be set as active.
-     */
-    public void setActivePanel(String panelType){
-        //Clear all panels on the main frame
-        mainFrame.clear();
-        //Pause gamePanel
-        gamePanel.togglePause(true);
-        if(panelType.equals("GamePanel")){ //GamePanel
-            gamePanel.togglePause(false);
-            mainFrame.setPanel(gamePanel);
-        }else if(panelType.equals("InventoryPanel")){ //InventoryPanel
-            mainFrame.setPanel(inventoryPanel);
-        }else if(panelType.equals("CraftingPanel")){ //CraftingPanel
-            mainFrame.setPanel(craftingPanel);
-        }else if(panelType.equals("PlacingPanel")){ //PlacingPanel
-            mainFrame.setPanel(placingPanel);
-        }else if(panelType.equals("GameOverPanel")){ //GameOverPanel
-            mainFrame.setPanel(gameOverPanel);
-        }
-    }
-    /**
-     * resetPanels
-     * Resets this level by creating a new gamePanel object.
-     */
-    public void resetPanels(){
-        //Create new game panel
-        setGamePanel(new GamePanel(this));
-        setActivePanel("GamePanel");
-    }
 
     /**
      * loadMapData
      * Loads the map data of this level from its corresponding .txt file.
      */
     public void loadMapData(){
-        
+        //TEMPORARY
     }
 }

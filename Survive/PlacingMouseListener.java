@@ -11,6 +11,9 @@ class PlacingMouseListener implements MouseListener{
     /*-----References to other objects-----*/
     private Level level;
     private PlacingPanel placingPanel;
+    private GraphicsButton startButton;
+    private GraphicsButton instruButton;
+    private GraphicsButton quitButton;
 
     /**
      * PlacingMouseListener
@@ -19,7 +22,7 @@ class PlacingMouseListener implements MouseListener{
      */
     PlacingMouseListener(Level level){
         this.level = level;
-        this.placingPanel = level.getPlacingPanel();
+        this.placingPanel = level.getPanelManager().getPlacingPanel();
     }
     /**
      * mouseClicked
@@ -27,9 +30,7 @@ class PlacingMouseListener implements MouseListener{
      * has been clicked. In this case, clicked means pressed and then released.
      */
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Mouse Clicked!!");
-        System.out.println("X:"+e.getX() + " y:"+e.getY());
-        
+        //Place defence
         placingPanel.placeDefence();
     }
     /**

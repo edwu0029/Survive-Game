@@ -1,6 +1,5 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
@@ -35,7 +34,7 @@ class VerticalFence extends Defence{
      */
     public void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\01\\fence_01.png"));
+            sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\fence_01.png"));
         }catch(Exception e){
             System.out.println("Could not load horizontal fence sprite");
         }
@@ -47,7 +46,6 @@ class VerticalFence extends Defence{
      * @param g The graphics object that this defence is to be drawn on.
      */
     public void draw(Graphics g){
-        super.draw(g);
         g.drawImage(sprite, this.getRelativeX(), this.getRelativeY(), null);
     }
 }

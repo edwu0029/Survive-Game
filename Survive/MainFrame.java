@@ -68,7 +68,12 @@ class MainFrame extends JFrame{
      * @param newPanel The panel that is to be displayed.
      */
     public void setPanel(JPanel newPanel){
+        clear();
         frame.add(newPanel);
+
+        //Redraw and validatate this frame
+        frame.revalidate();
+        frame.repaint();
 
         //Refocus frame
         frame.setVisible(true);

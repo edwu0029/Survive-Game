@@ -37,7 +37,7 @@ class TileMap implements Drawable{
         this.offsetX = 0;
         this.offsetY = 0;
 
-        getTileDetails();
+        loadTileDetails();
 
         this.tileMap = new Tile[height][width];
 
@@ -88,8 +88,15 @@ class TileMap implements Drawable{
     public int getWidth(){
         return width;
     }
+    /**
+     * getTileMapArray
+     * Returns a reference to the actual tile map array which contains all tiles.
+     * @return A reference to the actual tile map array which contains all tiles.
+     */
+    public Tile[][] getTileMapArray(){
+        return tileMap;
+    }
     //TEMPORARY
-    //Might want to convert this to interface
     /**
      * checkCollision
      * Checks whether a specified bpx has collided with any valid tiles. Note that in this case, valid tile
@@ -150,7 +157,7 @@ class TileMap implements Drawable{
         }
     }
     //TEMPORARY
-    public void getTileDetails(){
+    public void loadTileDetails(){
         try{
             File gameMapFile = new File(path+"GameMap.txt");
             Scanner fileInput = new Scanner(gameMapFile);

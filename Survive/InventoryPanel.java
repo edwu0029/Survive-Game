@@ -15,6 +15,7 @@ import java.awt.BorderLayout;
 class InventoryPanel extends JPanel{
     /*-----References to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private PlacingPanel placingPanel;
     private Player player;
     private ArrayList<Item> playerItems;
@@ -25,6 +26,10 @@ class InventoryPanel extends JPanel{
     private int selectedColumn;
     private int selectedRow;
 
+    //Buttons
+    private GraphicsButton backButton;
+    private GraphicsButton consumeButton;
+
     /**
      * InventoryPanel
      * A constructor that constructs a inventory panel for a specifed level.
@@ -32,15 +37,33 @@ class InventoryPanel extends JPanel{
      */
     InventoryPanel(Level level){
         this.level = level;
-        level.setInventoryPanel(this);
+        this.panelManager = level.getPanelManager();
+        panelManager.setInventoryPanel(this);
 
-        this.placingPanel = level.getPlacingPanel();
+        this.placingPanel = panelManager.getPlacingPanel();
         this.player = level.getPlayer();
 
         this.setLayout(new BorderLayout());
 
+        //Set up buttons
+        this.backButton = new GraphicsButton(60, 950, 200, 50);
+        this.backButton.setColor(new Color(255, 0, 0));
+        this.backButton.setText("Back");
+        this.backButton.setTextColor(new Color(255, 255, 255));
+        this.backButton.setFont("Arial", 20);
+
+        this.consumeButton = new GraphicsButton(800, 950, 200, 50);
+        this.consumeButton.setColor(new Color(0, 128, 0));
+        this.consumeButton.setText("Consume Selected");
+        this.consumeButton.setTextColor(new Color(255, 255, 255));
+        this.consumeButton.setFont("Arial", 20);
+
+        //Add key listener
         InventoryKeyListener keyListener = new InventoryKeyListener(level);
         this.addKeyListener(keyListener);
+        //Add mouse listener
+        InventoryMouseListener mouseListener = new InventoryMouseListener(level);
+        this.addMouseListener(mouseListener);
 
         this.playerItems = player.getPlayerItems();
         this.playerDefences = player.getPlayerDefences();
@@ -128,6 +151,26 @@ class InventoryPanel extends JPanel{
             g.drawRect(550, 64*selectedRow+200, 430, 64);
         }
 
+        //Draw buttons
+        backButton.draw(g);
+        consumeButton.draw(g);
+
+    }
+    /**
+     * getBackButton
+     * Returns a reference to the back button for this inventory panel.
+     * @return A reference to the back button for this inventory panel.
+     */
+    public GraphicsButton getBackButton(){
+        return backButton;
+    }
+    /**
+     * getConsumeButton
+     * Returns a reference to the consume button for this inventory panel.
+     * @return A reference to the consume button for this inventory panel.
+     */
+    public GraphicsButton getConsumeButton(){
+        return consumeButton;
     }
     /**
      * moveSelectionUp
@@ -167,7 +210,7 @@ class InventoryPanel extends JPanel{
             // playerDefences.get(selectedRow).place();
             placingPanel.setSelectedDefence(playerDefences.get(selectedRow));
             playerDefences.remove(selectedRow);
-            level.setActivePanel("PlacingPanel");
+            panelManager.setActivePanel("PlacingPanel");
         }
     }
 }

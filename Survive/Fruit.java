@@ -27,7 +27,7 @@ public class Fruit extends Item{
     Fruit(Level level, int x, int y){
         super(level, "Fruit", x, y);
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.player = level.getPlayer();
         loadSprites();
         this.healAmount = 100;

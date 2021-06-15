@@ -14,6 +14,7 @@ import java.awt.MouseInfo;
 class PlacingPanel extends JPanel{
     /*-----References to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private MainFrame mainFrame;
     private GamePanel gamePanel;
     private TileMap tileMap;
@@ -32,10 +33,11 @@ class PlacingPanel extends JPanel{
      */
     PlacingPanel(Level level){
         this.level = level;
-        level.setPlacingPanel(this);
+        this.panelManager = level.getPanelManager();
+        panelManager.setPlacingPanel(this);
 
         this.mainFrame = level.getMainFrame();
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = panelManager.getGamePanel();
         this.tileMap = level.getTileMap();
 
         PlacingMouseListener mouseListener = new PlacingMouseListener(level);
@@ -96,7 +98,7 @@ class PlacingPanel extends JPanel{
             
             hoveringTile.setHasDefence(true);
             level.getDefences().add(selectedDefence);
-            level.setActivePanel("GamePanel");
+            panelManager.setActivePanel("GamePanel");
         }
     }
     /**

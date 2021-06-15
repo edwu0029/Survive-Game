@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 class GameKeyListener implements KeyListener{
     /*-----References to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private Player player;
 
     /*-----Variables for this game key listenern-----*/
@@ -29,6 +30,7 @@ class GameKeyListener implements KeyListener{
      */
     GameKeyListener(Level level){
         this.level = level;
+        this.panelManager = level.getPanelManager();
         this.player = level.getPlayer();
 
         //By deafault, all movememnt is false
@@ -85,12 +87,12 @@ class GameKeyListener implements KeyListener{
             player.pickUpItem();
         }else if(e.getKeyCode()==KeyEvent.VK_I){ //I is pressed
             //Switch to inventory panel
-            level.setActivePanel("InventoryPanel");
+            panelManager.setActivePanel("InventoryPanel");
             //Stop all movement
             activeW = activeA = activeS = activeD = false;
         }else if(e.getKeyCode()==KeyEvent.VK_C){ //C is pressed
             //Switch to crafting panel
-            level.setActivePanel("CraftingPanel");
+            panelManager.setActivePanel("CraftingPanel");
             //Stop all movement
             activeW = activeA = activeS = activeD = false;
         }else if(e.getKeyCode()==KeyEvent.VK_1){ //1 is pressed

@@ -1,37 +1,31 @@
-import java.util.ArrayList;
-
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 /**
- * [StartMouseListener.java]
- * A class that represents a mouse listener for the start panel.
+ * [InstructionsMouseListener.java]
+ * A class that represents a mouse listener for the instructions panel.
  * @author Edward Wu
  * @version 1.0, June 15, 2021
  */
-class StartMouseListener implements MouseListener{
+class InstructionsMouseListener implements MouseListener{
     /*-----References to other objects-----*/
     private MainFrame mainFrame;
     private PanelManager panelManager;
-    private StartPanel startPanel;
-    private GraphicsButton startButton;
-    private GraphicsButton instructionsButton;
-    private GraphicsButton quitButton;
+    private InstructionsPanel instructionsPanel;
+    private GraphicsButton backButton;
 
     /**
-     * StartMousListener
-     * A constructor that constructs a start mouse listener for a specifiedl start panel.
+     * InstructionsMouseListener
+     * A constructor that constructs a instructions mouse listener for a specified instructions panel.
      * @param mainFrame The main frame for this game.
      * @param panelManager The panel manager for this game.
-     * @param startPanel The start panel that this start mouse lisntener is created for.
+     * @param instructionsPanel The instructions panel that this start mouse lisntener is created for.
      */
-    StartMouseListener (MainFrame mainFrame, PanelManager panelManager, StartPanel startPanel){
+    InstructionsMouseListener (MainFrame mainFrame, PanelManager panelManager, InstructionsPanel instructionsPanel){
         this.mainFrame = mainFrame;
         this.panelManager = panelManager;
-        this.startPanel = startPanel;
-        this.startButton = startPanel.getStartButton();
-        this.instructionsButton = startPanel.getInstructionsButton();
-        this.quitButton = startPanel.getQuitButton();
+        this.instructionsPanel = instructionsPanel;
+        this.backButton = instructionsPanel.getBackButton();
     }
 
     /**
@@ -47,13 +41,8 @@ class StartMouseListener implements MouseListener{
      * has been pressed
      */
     public void mousePressed(MouseEvent e) {
-        if(startButton.isInside(e.getX(), e.getY())){ //Check if start button was clicked
-            new Level(mainFrame, panelManager);
-        }else if(instructionsButton.isInside(e.getX(), e.getY())){ //Check if instructions button was clicked
-            panelManager.setActivePanel("InstructionsPanel");
-        }else if(quitButton.isInside(e.getX(), e.getY())){ //Check if quit button was clicked
-            //Exit program by terminating JVM
-            System.exit(0);
+        if(backButton.isInside(e.getX(), e.getY())){ //Check if start button was clicked
+            panelManager.setActivePanel("StartPanel");
         }
     }
     /**

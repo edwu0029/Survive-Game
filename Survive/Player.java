@@ -31,7 +31,7 @@ class Player implements Drawable, Moveable{
     private int mode; //1 = idle, 2 = blue laser gun holding, 3 = red laser gun holding
     private boolean[] possibleModes; //Some modes require a item to be used first
     private int orientation;
-    private int direction;
+    private int direction; //0 = Vertical, Horizontal = 1
     private BufferedImage[] spritesIdle;
     private int[] idleOffsetInX; //x-axis offset for idle sprites
     private int[] idleOffsetInY; //y-axis offset for idle sprites
@@ -77,7 +77,7 @@ class Player implements Drawable, Moveable{
     Player(Level level){
         /*-----Set up references to other objects-----*/
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
 
         /*-----Set up Player variables-----*/
@@ -286,20 +286,29 @@ class Player implements Drawable, Moveable{
      * Intiates the death of this player object by loading the game over panel.
      */
     public void death(){
-        level.setActivePanel("GameOverPanel");
+        level.getPanelManager().setActivePanel("GameOverPanel");
     }
     /**
      * attack
      * A method that intiates for this player to attack based on its current mode.
      */
     public void attack(){
-        if(attackDelay>=0.75){ //0.75 second delay between consecutive attacks from player
-            if(mode==2){ //Blue Laser gun
-                //Instantiate blue laser
-                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y, 5);
+        if(attackDelay>=0.75 && mode==2){
+            //Create blue laser
+            if(orientation==0 && direction==-1){ //Facing Up
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x+7, y, 5);
+                level.getProjectiles().add(blueLaser);
+            }else if(orientation==0 && direction==1){ //Facing Down
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x-7, y, 5);
+                level.getProjectiles().add(blueLaser);
+            }else if(orientation==1 && direction==-1){ //Facing Left
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y-7, 5);
+                level.getProjectiles().add(blueLaser);
+            }else if(orientation==1 && direction==1){ //Facing Right
+                BlueLaser blueLaser = new BlueLaser(level, orientation, direction, x, y+7, 5);
                 level.getProjectiles().add(blueLaser);
             }
-            //Reset attack delat
+            //Reset attack delay
             attackDelay = 0.0;
         }
     }
@@ -405,7 +414,7 @@ class Player implements Drawable, Moveable{
             tileMap.translate(-moveSpeed, 0);
         }
     }
-
+    
     //From Drawable
     /**
      * draw
@@ -418,13 +427,5 @@ class Player implements Drawable, Moveable{
 
         //Draw health bar
         healthBar.draw(g);
-
-        //DEBUG
-        /*
-        g.drawRect(x-15, y-(spriteHeight/2), 30, 3);
-        g.drawRect(x-(spriteWidth/2), y-15, 3, 30);
-        g.drawRect(x-15, y+(spriteHeight/2), 30, 3);
-        g.drawRect(x+(spriteWidth/2), y-15, 3, 30);
-        */
     }
 }

@@ -52,7 +52,7 @@ abstract class Projectile implements Drawable{
      */
     Projectile(Level level, int x, int y){
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
 
         this.ID = level.getNextProjectileID();

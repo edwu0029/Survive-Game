@@ -4,7 +4,10 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 
 /**
  * [GamePanel.java]
@@ -16,6 +19,7 @@ class GamePanel extends JPanel{
     /*-----References to other objects-----*/
     private Level level;
     private MainFrame mainFrame;
+    private PanelManager panelManager;
     private TileMap tileMap;
     private Player player;
 
@@ -30,6 +34,14 @@ class GamePanel extends JPanel{
     private ArrayList<Item> items;
     private ArrayList<Defence> defences;
 
+    //Game time(Time before night). Note these values are in seconds
+    private long previousTime; //Time in mileseconds of previous update
+    private long currentTime; //Time in mileseconds of current update
+    private double timeDifference;
+    private double dayTime;
+    private double nightTime;
+
+
     /**
      * GamePanel
      * A constructor that constructs a game panel for a specified level.
@@ -38,10 +50,12 @@ class GamePanel extends JPanel{
     GamePanel(Level level){
         this.level = level;
         //Set this as the game panel for the level
-        level.setGamePanel(this);
 
         this.mainFrame = level.getMainFrame();
+        this.panelManager = level.getPanelManager();
         this.path = level.getPath();
+
+        panelManager.setGamePanel(this);
 
         this.tileMap = new TileMap(level);
         //Set the tile map as the tile map for the level
@@ -68,10 +82,17 @@ class GamePanel extends JPanel{
         level.getRecipes().add(fenceVerticalRecipe);
 
         //Create and set other panels for the level
-        level.setCraftingPanel(new CraftingPanel(level));
-        level.setPlacingPanel(new PlacingPanel(level));
-        level.setInventoryPanel(new InventoryPanel(level));
-        level.setGameOverPanel(new GameOverPanel(level));
+        panelManager.setCraftingPanel(new CraftingPanel(level));
+        panelManager.setPlacingPanel(new PlacingPanel(level));
+        panelManager.setInventoryPanel(new InventoryPanel(level));
+        panelManager.setGameOverPanel(new GameOverPanel(level));
+        panelManager.setWinPanel(new WinPanel(level));
+
+        //Set up times
+        this.previousTime = System.currentTimeMillis();
+        
+        this.dayTime = 180.0; //Day time lasts 3 minutes = 180 seconds
+        this.nightTime = 60.0; //Night time lasts 1 minute = 60 seconds
 
         //Add Key Listener
         GameKeyListener keyListener = new GameKeyListener(level);
@@ -99,21 +120,47 @@ class GamePanel extends JPanel{
     public void animate(){
         while(true){
             if(!pause){
+                //Update projectiles
                 for(int i = 0;i<projectiles.size();i++){
                     projectiles.get(i).update();
                 }
+                //Update enemies
                 for(int i = 0;i<enemies.size();i++){
                     enemies.get(i).update();
                 }
-    
+                //Update items
                 for(int i = 0;i<items.size();i++){
                     items.get(i).update();
                 }
-    
+                //Update defences
                 for(int i = 0;i<defences.size();i++){
                     defences.get(i).update();
                 }
+                //Update player
                 player.update();
+
+                //Update times
+                currentTime = System.currentTimeMillis(); 
+                //Convert from miliseconds to seconds
+                timeDifference = (double)(currentTime-previousTime)/1000.0;
+
+                if(dayTime>=0.0){ //If it is day time
+                    dayTime-=timeDifference;
+                }else if(nightTime>=0.0){ //If it is night time
+                    nightTime-=timeDifference;
+                }
+                //Round values to 2 decimal place
+                dayTime = Math.round(dayTime*100.0)/100.0;
+                nightTime = Math.round(nightTime*100.0)/100.0;
+
+                //Make update previousTime
+                previousTime = currentTime;
+
+                //Check for win
+                if(nightTime<=0.0){
+                    panelManager.setActivePanel("WinPanel");
+                }
+
                 //delay
                 try{
                     Thread.sleep(10);
@@ -237,6 +284,11 @@ class GamePanel extends JPanel{
      */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+
+        //Variables
+        float tintAlpha; //Percent of tint based on how much time is left till night
+        Graphics2D g2d = (Graphics2D)g; //Graphics2D version of g
+
         //First draw a black background
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0, 0, mainFrame.getWindowWidth(), mainFrame.getWindowHeight());
@@ -248,23 +300,52 @@ class GamePanel extends JPanel{
         for(int i = 0;i<projectiles.size();i++){
             projectiles.get(i).draw(g);
         } 
-
         //Draw items
         for(int i = 0;i<items.size();i++){
             items.get(i).draw(g);
         }
-
         //Draw player
         player.draw(g);
-
         //Draw enemies
         for(int i = 0;i<enemies.size();i++){
             enemies.get(i).draw(g);
         }
-
         //Draw defences
         for(int i = 0;i<defences.size();i++){
             defences.get(i).draw(g);
+        }
+
+        //Draw night tint
+        tintAlpha = (float) ((180.0-dayTime)/180.0)*0.4f;
+        //Set transparency
+        g2d.setComposite(AlphaComposite.SrcOver.derive(tintAlpha));
+        g.setColor(new Color(0, 0, 0));
+        g.fillRect(0, 0, 1080, 1080);
+        //Reset transparency
+        g2d.setComposite(AlphaComposite.SrcOver.derive(1.0f));
+
+
+        //Draw timer in the top corner
+        //Draw rectangle
+        g.setColor(new Color(150, 75, 0));
+        g.fillRect(0, 0, 203, 103);
+        g.setColor(new Color(159, 161, 163));
+        g.fillRect(0, 0, 200, 100);
+
+        g.setColor(new Color(0, 0, 0));
+        if(dayTime>=0.0){
+            g.setFont(new Font("Arial", Font.PLAIN, 20));
+            g.setColor(new Color(0, 0, 0));
+            g.drawString("Time before night", 25, 40); 
+
+            //Display time left
+            g.drawString(Double.toString(dayTime), 70, 70);
+        }else{
+            g.setFont(new Font("Arial", Font.PLAIN, 20));
+            g.setColor(new Color(0, 0, 0));
+            g.drawString("Survive!", 60, 40);
+            //Display time left
+            g.drawString(Double.toString(nightTime), 70, 70);
         }
     }
 }

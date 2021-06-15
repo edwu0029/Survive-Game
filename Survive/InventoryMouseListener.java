@@ -2,33 +2,36 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 /**
- * [CraftinMouseListener.java]
- * A class that represents a mouse listener for the crafting panel.
+ * [InventoryMouseListener.java]
+ * A class that represents a mouse listener for the inventory panel.
  * @author Edward Wu
  * @version 1.0, June 15, 2021
  */
-class CraftingMouseListener implements MouseListener{
+class InventoryMouseListener implements MouseListener{
     /*-----References to other objects-----*/
     private Level level;
     private PanelManager panelManager;
-    private CraftingPanel craftingPanel;
+    private InventoryPanel inventoryPanel;
 
     private GraphicsButton backButton;
-    private GraphicsButton craftButton;
+    private GraphicsButton consumeButton;
 
     /**
-     * CraftingMouseListener
-     * A constructor that constructs a crafting mouse listener for a specified level.
-     * @param level The level that this crafting mouse listener is created for.
+     * InventoryMouseListener
+     * A constructor that constructs a inventory mouse listener for a specified inventory panel.
+     * @param level The level that this invetory mouse listener is created on.
      */
-    CraftingMouseListener(Level level){
+    InventoryMouseListener (Level level){
         this.level = level;
         this.panelManager = level.getPanelManager();
-        this.craftingPanel = panelManager.getCraftingPanel();
+        this.inventoryPanel = panelManager.getInventoryPanel();
+        this.panelManager = panelManager;
+        this.inventoryPanel = inventoryPanel;
 
-        this.backButton = craftingPanel.getBackButton();
-        this.craftButton = craftingPanel.getCraftButton();
+        this.backButton = inventoryPanel.getBackButton();
+        this.consumeButton = inventoryPanel.getConsumeButton();
     }
+
     /**
      * mouseClicked
      * An overwridden method from the MouseListener interface that executes code when the mouse
@@ -36,17 +39,16 @@ class CraftingMouseListener implements MouseListener{
      */
     public void mouseClicked(MouseEvent e) {
     }
-
     /**
      * mousePressed
      * An overwridden method from the MouseListener interface that executes code when the mouse
      * has been pressed
      */
     public void mousePressed(MouseEvent e) {
-        if(backButton.isInside(e.getX(), e.getY())){ //Check if vack button was clicked
+        if(backButton.isInside(e.getX(), e.getY())){ //Check if start button was clicked
             panelManager.setActivePanel("GamePanel");
-        }else if(craftButton.isInside(e.getX(), e.getY())){
-            craftingPanel.craftRecipe();
+        }else if(consumeButton.isInside(e.getX(), e.getY())){
+            inventoryPanel.consumeSelected();
         }
     }
     /**

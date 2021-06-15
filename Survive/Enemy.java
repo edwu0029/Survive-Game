@@ -50,7 +50,7 @@ abstract class Enemy implements Drawable{
      */
     Enemy(Level level, int maxHealth, int x, int y){
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.player = level.getPlayer();
         
@@ -63,7 +63,6 @@ abstract class Enemy implements Drawable{
 
         this.previousTime = System.currentTimeMillis();
         this.attackDelay = 0.0;
-        this.idle = true;
 
         //Set up health manager
         this.healthManager = new HealthManager(maxHealth);
@@ -77,6 +76,22 @@ abstract class Enemy implements Drawable{
         return ID;
     }
     /**
+     * setX 
+     * Sets the new absolute x-coordinate of the centre of this enemy to some specified value.
+     * @param newX The new absolute x-coordinate of the centre of this enemy.
+     */
+    public void setX(int newX){
+        x = newX;
+    }
+    /**
+     * getAbsoluteX
+     * Returns the absolute x-coordinate of the centre of this enemy.
+     * @return Returns the absolute x-coordinate of the centre of this enemy.
+     */
+    public int getAbsoluteX(){
+        return x;
+    }
+    /**
      * getRelativeX
      * Returns the x-coordinate of the top-left corner of this enemy relative
      * to the window.
@@ -84,6 +99,22 @@ abstract class Enemy implements Drawable{
      */
     public int getRelativeX(){
         return x+offsetX;
+    }
+    /**
+     * setY 
+     * Sets the new absolute y-coordinate of the centre of this enemy to some specified value.
+     * @param newY The new absolute y-coordinate of the centre of this enemy.
+     */
+    public void setY(int newY){
+        y = newY;
+    }
+    /**
+     * getAbsoluteY
+     * Returns the absolute y-coordinate of the centre of this enemy.
+     * @return Returns the absolute y-coordinate of the centre of this enemy.
+     */
+    public int getAbsoluteY(){
+        return y;
     }
     /**
      * getRelativeY
@@ -112,6 +143,14 @@ abstract class Enemy implements Drawable{
         this.width = width;
         this.height = height;
         hitBox = new Rectangle(x, y, width, height);
+    }
+    /**
+     * getHitBox
+     * Returns the hitbox for this enemy.
+     * @return the hitbox for thie enemy.
+     */
+    public Rectangle getHitBox(){
+        return hitBox;
     }
     /**
      * setAttackDelay

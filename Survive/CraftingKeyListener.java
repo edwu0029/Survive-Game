@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 class CraftingKeyListener implements KeyListener{
     /*-----Reference to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private CraftingPanel craftingPanel;
 
     /**
@@ -19,20 +20,31 @@ class CraftingKeyListener implements KeyListener{
      */
     CraftingKeyListener(Level level){
         this.level = level;
-        this.craftingPanel = level.getCraftingPanel();
+        this.panelManager = level.getPanelManager();
+        this.craftingPanel = panelManager.getCraftingPanel();
     }
-    
+    /**
+     * keyPressed
+     * An overwridden method from the KeyListener method that executes code based on the key pressed.
+     */
     public void keyPressed(KeyEvent e){
-        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){ //Return to GamePanel
-            level.setActivePanel("GamePanel");
-        }else if(e.getKeyCode()==KeyEvent.VK_ENTER){
-            craftingPanel.craftRecipe();
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){ //Return to GamePanel
+            craftingPanel.previousRecipe();
+        }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+            craftingPanel.nextRecipe();
         }
     }
+    /**
+     * keyTyped
+     * An overwridden method from the KeyListener method that executes code based on the key typed. In this
+     * case, typed means pressed and then released.
+     */
     public void keyTyped(KeyEvent e){
-        
     }
-    public void keyReleased(KeyEvent e){
-        
+    /**
+     * keyReleased
+     * An overwridden method from the KeyListener method that executes code based on the key released.
+     */
+    public void keyReleased(KeyEvent e){ 
     }
 }

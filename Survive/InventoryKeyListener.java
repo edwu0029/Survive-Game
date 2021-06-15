@@ -10,8 +10,8 @@ import java.awt.event.KeyListener;
 class InventoryKeyListener implements KeyListener{
     /*-----Reference to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private InventoryPanel inventoryPanel;
-    private Player player;
 
     /**
      * InventoryKeyListenener
@@ -20,8 +20,8 @@ class InventoryKeyListener implements KeyListener{
      */
     InventoryKeyListener(Level level){
         this.level = level;
-        this.inventoryPanel = level.getInventoryPanel();
-        this.player = level.getPlayer();
+        this.panelManager = level.getPanelManager();
+        this.inventoryPanel = panelManager.getInventoryPanel();
     }
 
     /**
@@ -29,10 +29,7 @@ class InventoryKeyListener implements KeyListener{
      * An overwridden method from the KeyListener method that executes code based on the key pressed.
      */
     public void keyPressed(KeyEvent e){
-        // System.out.println("key pressed");
-        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){ //return to GamePanel
-            level.setActivePanel("GamePanel");
-        }else if(e.getKeyCode()==KeyEvent.VK_UP){
+        if(e.getKeyCode()==KeyEvent.VK_UP){
             inventoryPanel.moveSelectionUp();
         }else if(e.getKeyCode()==KeyEvent.VK_DOWN){
             inventoryPanel.moveSelectionDown();
@@ -40,8 +37,6 @@ class InventoryKeyListener implements KeyListener{
             inventoryPanel.toggleColumnSelection(0);
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             inventoryPanel.toggleColumnSelection(1);
-        }else if(e.getKeyCode()==KeyEvent.VK_ENTER){
-            inventoryPanel.consumeSelected();
         }
     }
     /**
@@ -50,7 +45,6 @@ class InventoryKeyListener implements KeyListener{
      * case, typed means pressed and then released.
      */
     public void keyTyped(KeyEvent e){
-        
     }
     /**
      * keyReleased

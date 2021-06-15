@@ -10,6 +10,7 @@ import java.awt.Graphics;
 abstract class Item implements Drawable{
     /*-----References to other objects-----*/
     private Level level;
+    private PanelManager panelManager;
     private GamePanel gamePanel;
     private TileMap tileMap;
     private String path;
@@ -44,7 +45,8 @@ abstract class Item implements Drawable{
      */
      Item(Level level, String type, int x, int y){
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.panelManager = level.getPanelManager();
+        this.gamePanel = panelManager.getGamePanel();
         this.tileMap = level.getTileMap();
 
         this.ID = level.getNextItemID();

@@ -25,7 +25,7 @@ class BlueLaserGun extends Item {
     BlueLaserGun(Level level, int x, int y){
         super(level, "Blue Laser Gun", x, y);
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         loadSprites();
         super.setBoundingBox(sprite.getWidth(), sprite.getHeight());
     }

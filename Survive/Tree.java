@@ -20,6 +20,8 @@ class Tree extends Enemy{
 
     /*-----Variables for this Enemy-----*/
     private String path;
+    private int damage;
+
     //Sprites
     private BufferedImage spriteTopLeft;
     private BufferedImage spriteTopRight;
@@ -37,12 +39,15 @@ class Tree extends Enemy{
     Tree(Level level, int maxHealth, int x, int y){
         super(level, 200, x, y);
         this.level = level;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.player = level.getPlayer();
         this.path = level.getPath();
+
+        this.damage = 10;
+
         loadSprites();
-        super.setHitBox(256, 256);
+        super.setHitBox(128, 128);
     }
     /**
      * loadSprites
@@ -68,9 +73,14 @@ class Tree extends Enemy{
         level.getItems().add(new Fruit(level, this.getRelativeX()+50, this.getRelativeY()-20));
         super.death();
     }
-    
+    /**
+     * attack
+     * An overwridden method form the Enemy class that intiates the attack of this tree enemy.
+     */
     public void attack(){
+        //DEBUG
         System.out.println("Attack");
+        player.getHealthManager().takeDamage(damage);
     }
     /**
      * update
@@ -78,6 +88,12 @@ class Tree extends Enemy{
      */
     public void update(){
         super.update();
+
+        //If in range, attack
+        if(checkCollision(player.getHitBox()) && this.getAttackDelay()>=2.0){
+            attack();
+            setAttackDelay(0.0);
+        }
 
         //Check for health and death
         if(getHealthManager().getHealth()<=0){
@@ -92,13 +108,13 @@ class Tree extends Enemy{
      */
     public void draw(Graphics g) {
         //Draw top-left corner
-        g.drawImage(spriteTopLeft, this.getRelativeX(), this.getRelativeY(), null);
+        g.drawImage(spriteTopLeft, this.getRelativeX()-64, this.getRelativeY()-64, null);
         //Draw top-left corner
-        g.drawImage(spriteTopRight, this.getRelativeX()+64, this.getRelativeY(), null);
+        g.drawImage(spriteTopRight, this.getRelativeX(), this.getRelativeY()-64, null);
         //Draw top-left corner
-        g.drawImage(spriteBottomLeft, this.getRelativeX(), this.getRelativeY()+64, null);
+        g.drawImage(spriteBottomLeft, this.getRelativeX()-64, this.getRelativeY(), null);
         //Draw top-left corner
-        g.drawImage(spriteBottomRight, this.getRelativeX()+64, this.getRelativeY()+64, null);
+        g.drawImage(spriteBottomRight, this.getRelativeX(), this.getRelativeY(), null);
     }
 
 }

@@ -34,7 +34,7 @@ class Recipe {
         this.player = level.getPlayer();
         this.ingredients = ingredients;
         this.itemProduct = itemProduct;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.path = level.getPath();
 
@@ -54,7 +54,7 @@ class Recipe {
         this.player = level.getPlayer();
         this.ingredients = ingredients;
         this.defenceProduct = defenceProduct;
-        this.gamePanel = level.getGamePanel();
+        this.gamePanel = level.getPanelManager().getGamePanel();
         this.tileMap = level.getTileMap();
         this.path = level.getPath();
 

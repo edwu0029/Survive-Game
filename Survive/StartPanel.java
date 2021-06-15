@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 class StartPanel extends JPanel{
     /*-----References to other objects-----*/
     private MainFrame mainFrame;
+    private PanelManager panelManager;
 
     /*-----Variables for this start panel-----*/
     private String path;
@@ -27,13 +28,16 @@ class StartPanel extends JPanel{
      * StartPanel
      * A constructor that consutructs a StartPanel object and displays it to the main frame.
      * @param mainFrame The main frame that this start panel will be displayed on. 
+     * @param panelManager The panel manager for this start panel.
      */
-    StartPanel(MainFrame mainFrame){
+    StartPanel(MainFrame mainFrame, PanelManager panelManager){
         this.mainFrame = mainFrame;
+        this.panelManager = panelManager;
+        panelManager.setStartPanel(this);
 
         loadPath();
         loadImages();
-
+        
         //Set up Start Button
         this.startButton = new GraphicsButton(290, 400, 500, 100);
         this.startButton.setColor(new Color(0,128,0));
@@ -55,8 +59,8 @@ class StartPanel extends JPanel{
         this.quitButton.setTextColor(new Color(255, 255, 255));
         this.quitButton.setFont("Arial", 50);
 
-        // StartMouseListener mouseListener = new StartMouseListener(panelManager, this);
-        // this.addMouseListener(mouseListener);
+        StartMouseListener mouseListener = new StartMouseListener(mainFrame, panelManager, this);
+        this.addMouseListener(mouseListener);
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -72,8 +76,6 @@ class StartPanel extends JPanel{
      */
     public void animate(){
         while(true){
-
-            
 
             //delay
             try{
@@ -114,6 +116,30 @@ class StartPanel extends JPanel{
         }catch(Exception e){
             System.out.println("Error loading images for start panel.");
         }
+    }
+    /**
+     * getStartButton
+     * Returns a reference to this start panel's start button.
+     * @return A reference to this start panel's start button.
+     */
+    public GraphicsButton getStartButton(){
+        return startButton;
+    }
+    /**
+     * getInstructionsButton
+     * Returns a reference to this start panel's instruction button.
+     * @return A reference to this start panel's instruction button.
+     */
+    public GraphicsButton getInstructionsButton(){
+        return instructionsButton;
+    }
+    /**
+     * getQuitButton
+     * Returns a reference to this start panel's quit button.
+     * @return A reference to this start panel's quit button.
+     */
+    public GraphicsButton getQuitButton(){
+        return quitButton;
     }
     /**
      * painComponent
