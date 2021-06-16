@@ -1,8 +1,7 @@
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-
+import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 
 /**
@@ -60,7 +59,7 @@ class BlueLaser extends Projectile{
      * loadSprites
      * Loads the blue laser sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             if(orientation==0){ //Vertical
                 sprite = ImageIO.read(new File(path+"Sprites\\Projectile\\Blue Laser\\bluelaser_01.png"));

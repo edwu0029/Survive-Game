@@ -104,7 +104,7 @@ class Zombie extends Enemy implements Moveable{
         }
         //Find the computer/goal that this zombie will move towards
         for(int i = 0;i<defences.size();i++){
-            if(defences.get(i).getType().equals("Goal")){
+            if(defences.get(i).getType().equals("Computer")){
                 goalX = defences.get(i).getAbsoluteX();
                 goalY = defences.get(i).getAbsoluteY();
                 //Once goal is found, break out of loop
@@ -121,7 +121,7 @@ class Zombie extends Enemy implements Moveable{
      * loadSprites
      * An overwridden method form the Enemy clas that loads the zombie sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             for(int i = 1;i<=4;i++){
                 String spritePath = path+"Sprites\\Enemy\\Zombie\\zombie_";

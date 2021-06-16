@@ -2,7 +2,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 /**
- * [CraftinMouseListener.java]
+ * [CraftingMouseListener.java]
  * A class that represents a mouse listener for the crafting panel.
  * @author Edward Wu
  * @version 1.0, June 15, 2021

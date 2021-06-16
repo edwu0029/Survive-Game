@@ -94,6 +94,8 @@ class Recipe {
     public boolean checkCraftable(){
         //Array to keep track of already counted items
         boolean[] alreadyTaken = new boolean[playerItems.size()];
+        
+        //Loop through all ingredients
         for(int i = 0;i<ingredients.length;i++){
             boolean foundIngredient = false;
             for(int j = 0;j<playerItems.size();j++){
@@ -135,14 +137,16 @@ class Recipe {
             if(defenceProduct.getType().equals("Horizontal Fence")){ //Horizontal Fence
                 newDefence = new HorizontalFence(level, 0, 0);
 
-                //Set spawn offsets to 0 to make it at the top-left corner. This is needed for the defence to be placed properly.
+                //Set spawn offsets to 0 to make it at the top-left corner.
+                //This is needed for the defence to be placed properly.
                 newDefence.setSpawnOffsetX(0);
                 newDefence.setSpawnOffsetY(0);
                 playerDefences.add(newDefence);
             }else if(defenceProduct.getType().equals("Vertical Fence")){ //Vertical Fence
                 newDefence = new VerticalFence(level, 0, 0);
 
-                //Set spawn offsets to 0 to make it at the top-left corner. This is needed for the defence to be placed properly.
+                //Set spawn offsets to 0 to make it at the top-left corner.
+                //This is needed for the defence to be placed properly.
                 newDefence.setSpawnOffsetX(0);
                 newDefence.setSpawnOffsetY(0);
                 playerDefences.add(newDefence);

@@ -199,7 +199,7 @@ class Player implements Drawable, Moveable{
      * loadSprites
      * Loads the player sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         //Loop through all modes (idle, holding blue laser gun, holding red laser gun)
         for(int modeNumber = 1;modeNumber<=3;modeNumber++){
             //Loop through each sprite (facing up, left, down, right)
@@ -230,7 +230,7 @@ class Player implements Drawable, Moveable{
      * loadSpriteOffset
      * Loads the sprite offset data for each player sprite.
      */
-    public void loadSpriteOffset(){
+    private void loadSpriteOffset(){
         //Certain sprites must be offset by some amount when drawn on screen to be centered and consistent with the other sprites.
         //This is the reason for this method. This info is stored in .txt files with the same names as the sprites
 

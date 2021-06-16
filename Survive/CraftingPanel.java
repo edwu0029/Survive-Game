@@ -102,7 +102,7 @@ class CraftingPanel extends JPanel{
      * loadImages
      * A method that loads the necessary images to draw this crafting panel.
      */
-    public void loadImages(){
+    private void loadImages(){
         try{
             File backgroundFile = new File(level.getPath()+"\\Sprites\\Panels\\craftingpanel_background.jpg");
             File arrowFile = new File(level.getPath()+"\\Sprites\\Panels\\arrow.png");

@@ -1,5 +1,6 @@
-import java.awt.Graphics;
 import java.io.File;
+
+import java.awt.Graphics;
 import java.awt.image.BufferedImage; 
 import javax.imageio.ImageIO;
 
@@ -34,7 +35,7 @@ class BlueLaserGun extends Item {
      * loadSprites
      * Loads the blue laser gun sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(level.getPath()+"\\Sprites\\Item\\bluelasergun.png"));
         }catch(Exception e){

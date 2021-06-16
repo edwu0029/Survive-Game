@@ -77,7 +77,7 @@ class Tile implements Drawable{
      * loadSprites
      * Loads this tile's sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         String newPath = path+groupNumber+"\\tile_"+groupNumber+"_"+tileNumber+".png";
         try{
             sprite = ImageIO.read(new File(newPath));

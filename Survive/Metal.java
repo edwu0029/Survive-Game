@@ -31,7 +31,7 @@ class Metal extends Item{
      * loadSprites
      * Loads the metal sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(path+"\\Sprites\\Item\\metal.png"));
         }catch(Exception e){

@@ -38,7 +38,7 @@ public class Fruit extends Item{
      * loadSprites
      * Loads the fruit sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(level.getPath()+"\\Sprites\\Item\\fruit.png"));
         }catch(Exception e){

@@ -55,7 +55,7 @@ class Tree extends Enemy{
      * loadSprites
      * Loads the tree sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             String spritePath = path+"Sprites\\Enemy\\Tree\\";
             spriteTopLeft = ImageIO.read(new File(spritePath+"tree_01.png"));

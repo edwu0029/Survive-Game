@@ -1,11 +1,15 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
+/**
+ * [HorizontalFence.java]
+ * A class that represents a horizontal fence defence.
+ * @author Edward Wu
+ * @version 1.0, June 15, 2021
+ */
 class HorizontalFence extends Defence{
     /*-----Variables for this Horizontal Fence-----*/
     private BufferedImage sprite;
@@ -29,7 +33,7 @@ class HorizontalFence extends Defence{
      * loadSprites
      * Loads the horizontal fence sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\fence_02.png"));
         }catch(Exception e){

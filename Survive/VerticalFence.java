@@ -32,7 +32,7 @@ class VerticalFence extends Defence{
      * loadSprites
      * Loads the vertical fence sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\fence_01.png"));
         }catch(Exception e){

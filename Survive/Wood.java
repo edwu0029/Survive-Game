@@ -24,7 +24,7 @@ class Wood extends Item{
      * loadSprites
      * Loads the wood sprites from the Sprites folder of the game directory.
      */
-    public void loadSprites(){
+    private void loadSprites(){
         try{
             sprite = ImageIO.read(new File(path+"\\Sprites\\Item\\wood.png"));
         }catch(Exception e){

@@ -63,8 +63,8 @@ class Level{
         //Create Game Panel
         new GamePanel(this);
 
-        //Create goal
-        defences.add(new Goal(this, 1088, 960));
+        //Create computer
+        defences.add(new Computer(this, 1088, 960));
 
         enemies.add(new Tree(this, 200, 300));
         enemies.add(new Tree(this, 400, 400));
@@ -72,14 +72,14 @@ class Level{
         enemies.add(new Tree(this, 1000, 600));
 
         //Create items that are on the ground
-        items.add(new BlueLaserGun(this, 1200, 600));
+        items.add(new BlueLaserGun(this, 500, 600));
         items.add(new Wood(this, 300, 1000));
-        items.add(new Wood(this, 400, 1000));
-        items.add(new Wood(this, 300, 1000));
+        items.add(new Wood(this, 1000, 400));
+        items.add(new Wood(this, 1200, 950));
         items.add(new Wood(this, 400, 1000));
         items.add(new Rock(this, 640, 320));
         items.add(new Metal(this, 504, 320));
-        items.add(new Metal(this, 504, 320));
+        items.add(new Metal(this, 600, 420));
         items.add(new Metal(this, 400, 1000));
         items.add(new Metal(this, 504, 670));
 

@@ -88,10 +88,11 @@ class InstructionsPanel extends JPanel{
         g.drawString("Press 'F' to pick up items on the map.", 100, 220);
         g.drawString("Press 'I' and 'C' to switch to the Inventory and Crafting menus respsectively.", 100, 240);
 
-        g.drawString("To select other items in your inventory, use the arrow keys.", 100, 280);
+        g.drawString("Press '1' and '2' to toggle between player modes.", 100, 280);
+        g.drawString("NOTE you must pick up AND consume a blue laser gun to use mode 2.", 100, 300);
+        g.drawString("The blue laser gun can be found near the player's spawn point!", 100, 320);
 
-        g.drawString("Press '1' and '2' to toggle between player modes.", 100, 320);
-        g.drawString("Note you must pick up and consume a blue laser gun to use mode 2.", 100, 340);
+        g.drawString("To select other items in your inventory, use the arrow keys.", 100, 360);
         
         g.drawString("Click the left mouse button to shoot lasers if in mode 2.", 100, 380);
         

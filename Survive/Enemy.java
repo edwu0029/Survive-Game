@@ -3,7 +3,9 @@ import java.awt.Rectangle;
 
 /**
  * [Enemy.java]
- * A class that represents
+ * A class that represents an enemy for this game.
+ * @author Edward Wu
+ * @version 1.0, June 15, 2021
  */
 abstract class Enemy implements Drawable{
     /*-----References to other objects----*/
@@ -14,7 +16,6 @@ abstract class Enemy implements Drawable{
 
     /*-----Variables for this Enemy----*/
     private final int ID;
-    private boolean idle;
     private String path;
 
     //Variables for position and offset
@@ -32,7 +33,6 @@ abstract class Enemy implements Drawable{
     private double attackDelay; //Time since last attack was made
 
     private Rectangle hitBox; //Hitbox of this enemy
-    private Rectangle sightBox;
     private int width;
     private int height;
 
