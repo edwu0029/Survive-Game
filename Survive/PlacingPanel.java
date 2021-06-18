@@ -91,9 +91,6 @@ class PlacingPanel extends JPanel{
         if(hoveringTile!=null){
             selectedDefence.setX(hoveringTile.getAbsoluteX());
             selectedDefence.setY(hoveringTile.getAbsoluteY());
-
-            System.out.println(hoveringTile.getAbsoluteX());
-            System.out.print(hoveringTile.getAbsoluteY());
             
             hoveringTile.setHasDefence(true);
             level.getDefences().add(selectedDefence);
