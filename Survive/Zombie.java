@@ -330,24 +330,40 @@ class Zombie extends Enemy implements Moveable{
         setAttackDelay(0.0);
     }
     //From Moveable interface
+    /**
+     * moveUp
+     * A overwridden method from the Moveable interface that moves the zombie up.
+     */
     public void moveUp(){
         if(!defenceTouching){
             setOrientation('W');
             this.setY(getAbsoluteY()-moveSpeed);
         }
     }
+    /**
+     * moveLeft
+     * A overwridden method from the Moveable interface that moves the zombie left.
+     */
     public void moveLeft(){
         if(!defenceTouching){
             setOrientation('A');
         this.setX(getAbsoluteX()-moveSpeed);
         }
     }
+    /**
+     * moveDown
+     * A overwridden method from the Moveable interface that moves the zombie down.
+     */
     public void moveDown(){
         if(!defenceTouching){
             setOrientation('S');
             this.setY(getAbsoluteY()+moveSpeed);
         }
     }
+    /**
+     * moveRight
+     * A overwridden method from the Moveable interface that moves the zombie right.
+     */
     public void moveRight(){
         if(!defenceTouching){
             setOrientation('D');

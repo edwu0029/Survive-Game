@@ -28,7 +28,7 @@ class Player implements Drawable, Moveable{
     private int y; //The y-coordinate of the CENTRE of the player
 
     //Varibales for sprites
-    private int mode; //1 = idle, 2 = blue laser gun holding, 3 = red laser gun holding
+    private int mode; //1 = idle, 2 = blue laser gun holding
     private boolean[] possibleModes; //Some modes require a item to be used first
     private int orientation;
     private int direction; //0 = Vertical, Horizontal = 1
@@ -200,8 +200,8 @@ class Player implements Drawable, Moveable{
      * Loads the player sprites from the Sprites folder of the game directory.
      */
     private void loadSprites(){
-        //Loop through all modes (idle, holding blue laser gun, holding red laser gun)
-        for(int modeNumber = 1;modeNumber<=3;modeNumber++){
+        //Loop through all modes (idle, holding blue laser gun)
+        for(int modeNumber = 1;modeNumber<=2;modeNumber++){
             //Loop through each sprite (facing up, left, down, right)
             for(int spriteNumber = 1;spriteNumber<=4;spriteNumber++){
                 String modeNumberString = "0"+Integer.toString(modeNumber);
@@ -217,8 +217,6 @@ class Player implements Drawable, Moveable{
                     }else if(modeNumber==2){ //Holding Blue Laser Gun
                         //spriteNumber-1 since the array spritesBlueGunHolding is 0-indexed
                         spritesBlueGunHolding[spriteNumber-1] = ImageIO.read(new File(spritePath));
-                    }else if(modeNumber==3){ //TEMPORARY
-                        
                     }
                 }catch(Exception e){
                     System.out.println("Error loading player sprite");
@@ -234,8 +232,8 @@ class Player implements Drawable, Moveable{
         //Certain sprites must be offset by some amount when drawn on screen to be centered and consistent with the other sprites.
         //This is the reason for this method. This info is stored in .txt files with the same names as the sprites
 
-        //Loop through all modes (idle, holding blue laser gun, holding red laser gun)
-        for(int modeNumber = 1;modeNumber<=3;modeNumber++){
+        //Loop through all modes (idle, holding blue laser gun)
+        for(int modeNumber = 1;modeNumber<=2;modeNumber++){
             //Loop through each sprite (facing up, left, down, right)
             for(int spriteNumber = 1;spriteNumber<=4;spriteNumber++){
                 String modeNumberString = "0"+Integer.toString(modeNumber);
@@ -260,8 +258,6 @@ class Player implements Drawable, Moveable{
                         //spriteNumber-1 since the arrays are 0-indexed
                         blueGunHoldingOffsetInX[spriteNumber-1] = offsetX;
                         blueGunHoldingOffsetInY[spriteNumber-1] = offsetY;
-                    }else if(modeNumber==3){
-                        //TEMPORARY
                     }
 
                 }catch(Exception e){
@@ -422,7 +418,7 @@ class Player implements Drawable, Moveable{
      * @param g The graphics object that this player is to be drawn on.
      */
     public void draw(Graphics g){
-        //TEMPORARY
+        //Draw player sprite
         g.drawImage(activeSprite, x-(spriteWidth/2)+activeSpriteOffsetInX, y-(spriteHeight/2)+activeSpriteOffsetInY, null);
 
         //Draw health bar

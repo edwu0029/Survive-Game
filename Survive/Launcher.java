@@ -14,6 +14,8 @@ class Launcher {
         //Create the intial panels (Start and Instructions)s
         StartPanel startPanel = new StartPanel(mainFrame, panelManager);
         InstructionsPanel instructionsPanel = new InstructionsPanel(mainFrame, panelManager);
+
+        //Set Start panel as intially loaded panel
         mainFrame.setPanel(startPanel);
     }
 }
