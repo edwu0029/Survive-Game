@@ -12,6 +12,7 @@ import java.awt.Graphics;
 class VerticalFence extends Defence{
     /*-----Variables for this vertical fence-----*/
     private String path;
+    private char sep;
     private BufferedImage sprite;
 
     /**
@@ -25,6 +26,7 @@ class VerticalFence extends Defence{
         //All fences have a maximum health of 300
         super(level, "Vertical Fence", x, y, 300);
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -34,7 +36,7 @@ class VerticalFence extends Defence{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\fence_01.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Defence"+sep+"fence_01.png"));
         }catch(Exception e){
             System.out.println("Could not load horizontal fence sprite");
         }

@@ -15,6 +15,7 @@ class Computer extends Defence{
     /*-----Variables for this goal-----*/
     private Level level;
     private String path;
+    private char sep;
     private BufferedImage sprite;
 
     /**
@@ -29,6 +30,7 @@ class Computer extends Defence{
         super(level, "Computer", x, y, 1000);
         this.level = level;
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -38,7 +40,7 @@ class Computer extends Defence{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\goal.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Defence"+sep+"goal.png"));
         }catch(Exception e){
             System.out.println("Could not load horizontal fence sprite");
         }

@@ -20,6 +20,7 @@ class Tree extends Enemy{
 
     /*-----Variables for this Enemy-----*/
     private String path;
+    private char sep;
     private int damage;
 
     //Sprites
@@ -44,6 +45,7 @@ class Tree extends Enemy{
         this.tileMap = level.getTileMap();
         this.player = level.getPlayer();
         this.path = level.getPath();
+        this.sep = level.getSep();
 
         //All trees have a damage of 10
         this.damage = 10;
@@ -57,7 +59,7 @@ class Tree extends Enemy{
      */
     private void loadSprites(){
         try{
-            String spritePath = path+"Sprites\\Enemy\\Tree\\";
+            String spritePath = path+"Sprites"+sep+"Enemy"+sep+"Tree"+sep;
             spriteTopLeft = ImageIO.read(new File(spritePath+"tree_01.png"));
             spriteTopRight = ImageIO.read(new File(spritePath+"tree_02.png"));
             spriteBottomRight = ImageIO.read(new File(spritePath+"tree_03.png"));

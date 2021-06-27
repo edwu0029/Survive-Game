@@ -17,6 +17,7 @@ class StartPanel extends JPanel{
 
     /*-----Variables for this start panel-----*/
     private String path;
+    private char sep; //Directory seperator character
     private GraphicsButton startButton;
     private GraphicsButton instructionsButton;
     private GraphicsButton quitButton;
@@ -94,6 +95,12 @@ class StartPanel extends JPanel{
      */
     public void loadPath(){
         try{
+            //Get correct directory seperator
+            if(System.getProperty("os.name").toLowerCase().contains("windows")){
+                sep = '\\';
+            }else{
+                sep = '/';
+            }
             String absolutePath;
             File file = new File("StartPanel.java");
 
@@ -111,7 +118,7 @@ class StartPanel extends JPanel{
      */
     public void loadImages(){
         try{
-            File titleFile = new File(path+"Sprites\\Panels\\startpanel_title.png");
+            File titleFile = new File(path+"Sprites"+sep+"Panels"+sep+"startpanel_title.png");
             title = ImageIO.read(titleFile);
         }catch(Exception e){
             System.out.println("Error loading images for start panel.");

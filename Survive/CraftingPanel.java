@@ -21,7 +21,9 @@ class CraftingPanel extends JPanel{
     private Level level;
     private Player player;
     
-    /*-----Variables for this CraftinPanel------*/
+    /*-----Variables for this CraftingPanel------*/
+    private String path;
+    private char sep;
     private int currentIndex;
     static ArrayList<Recipe> recipes;
     private String[] currentIngredients;
@@ -46,6 +48,9 @@ class CraftingPanel extends JPanel{
 
         this.player = level.getPlayer();
         this.recipes = level.getRecipes();
+
+        this.path = level.getPath();
+        this.sep = level.getSep();
 
         //Load images
         loadImages();
@@ -104,8 +109,8 @@ class CraftingPanel extends JPanel{
      */
     private void loadImages(){
         try{
-            File backgroundFile = new File(level.getPath()+"\\Sprites\\Panels\\craftingpanel_background.jpg");
-            File arrowFile = new File(level.getPath()+"\\Sprites\\Panels\\arrow.png");
+            File backgroundFile = new File(path+sep+"Sprites"+sep+"Panels"+sep+"craftingpanel_background.jpg");
+            File arrowFile = new File(path+sep+"Sprites"+sep+"Panels"+sep+"arrow.png");
 
             background = ImageIO.read(backgroundFile);
             arrow = ImageIO.read(arrowFile);

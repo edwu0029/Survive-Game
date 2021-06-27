@@ -19,6 +19,7 @@ class BlueLaser extends Projectile{
     private int direction;
 
     private String path;
+    private char sep;
 
     //Sprite variables
     private BufferedImage sprite;
@@ -42,6 +43,7 @@ class BlueLaser extends Projectile{
         this.direction = direction;
 
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(width, height);
         //All blue lasers have a damage value fo 100
@@ -62,11 +64,11 @@ class BlueLaser extends Projectile{
     private void loadSprites(){
         try{
             if(orientation==0){ //Vertical
-                sprite = ImageIO.read(new File(path+"Sprites\\Projectile\\Blue Laser\\bluelaser_01.png"));
+                sprite = ImageIO.read(new File(path+"Sprites"+sep+"Projectile"+sep+"Blue Laser"+sep+"bluelaser_01.png"));
                 width = sprite.getWidth();
                 height = sprite.getHeight();
             }else{ //Horizontal
-                sprite = ImageIO.read(new File(path+"Sprites\\Projectile\\Blue Laser\\bluelaser_02.png"));
+                sprite = ImageIO.read(new File(path+"Sprites"+sep+"Projectile"+sep+"Blue Laser"+sep+"bluelaser_02.png"));
                 width = sprite.getWidth();
                 height = sprite.getHeight();
             }

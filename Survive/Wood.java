@@ -12,11 +12,13 @@ import javax.imageio.ImageIO;
 class Wood extends Item{
 
     private String path;
+    private char sep;
     private BufferedImage sprite;
 
     Wood(Level level, int x, int y){
         super(level, "Wood", x, y);
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -26,7 +28,7 @@ class Wood extends Item{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Item\\wood.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Item"+sep+"wood.png"));
         }catch(Exception e){
             System.out.println("Error wood sprite not loaded properly");
         }

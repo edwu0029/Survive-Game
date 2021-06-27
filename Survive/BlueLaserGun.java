@@ -14,6 +14,7 @@ class BlueLaserGun extends Item {
     private GamePanel gamePanel;
 
     /*-----Variables for this blue laser gun-----*/
+    private char sep;
     private BufferedImage sprite;
 
     /**
@@ -27,6 +28,7 @@ class BlueLaserGun extends Item {
         super(level, "Blue Laser Gun", x, y);
         this.level = level;
         this.gamePanel = level.getPanelManager().getGamePanel();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(sprite.getWidth(), sprite.getHeight());
     }
@@ -37,7 +39,7 @@ class BlueLaserGun extends Item {
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(level.getPath()+"\\Sprites\\Item\\bluelasergun.png"));
+            sprite = ImageIO.read(new File(level.getPath()+""+sep+"Sprites"+sep+"Item"+sep+"bluelasergun.png"));
         }catch(Exception e){
             System.out.println("Error loading blue laser gun sprite");
         }

@@ -4,7 +4,6 @@ Survive is a 2D Zombie Survival game created entirely using Java and the Java Sw
 ## Requirements
 - Reqiuires [Java 8](https://www.oracle.com/ca-en/java/technologies/javase/javase-jdk8-downloads.html) or newer.
 - Requires a screen resolution of at least 1080 pixels x 1080 pixels. This game is not scalable.
-- This game currently only works for Windows OS.
 
 ## Usage
 Download the Survive.zip file from this github repository. Unzip this zip file.

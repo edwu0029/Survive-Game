@@ -15,6 +15,7 @@ class Tile implements Drawable{
 
     /*-----Varaibles for this tile-----*/
     private String path;
+    private char sep;
 
     private int row; //Row number in TileMap
     private int column; //Column number in TileMap
@@ -49,7 +50,8 @@ class Tile implements Drawable{
      */
     Tile(Level level, int r, int c, String groupNumber, String tileNumber){
         this.level = level;
-        this.path = level.getPath()+"Sprites\\Tiles\\";
+        this.sep = level.getSep();
+        this.path = level.getPath()+"Sprites"+sep+"Tiles"+sep;
         this.row = r;
         this.column = c;
 
@@ -78,7 +80,7 @@ class Tile implements Drawable{
      * Loads this tile's sprites from the Sprites folder of the game directory.
      */
     private void loadSprites(){
-        String newPath = path+groupNumber+"\\tile_"+groupNumber+"_"+tileNumber+".png";
+        String newPath = path+groupNumber+sep+"tile_"+groupNumber+"_"+tileNumber+".png";
         try{
             sprite = ImageIO.read(new File(newPath));
         }catch(Exception e){

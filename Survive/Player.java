@@ -206,9 +206,10 @@ class Player implements Drawable, Moveable{
             for(int spriteNumber = 1;spriteNumber<=4;spriteNumber++){
                 String modeNumberString = "0"+Integer.toString(modeNumber);
                 String spriteNumberString = "0"+Integer.toString(spriteNumber);
-                String spritePath = level.getPath()+"\\Sprites\\Player\\";
+                char sep = level.getSep();
+                String spritePath = level.getPath()+sep+"Sprites"+sep+"Player"+sep;
 
-                spritePath+=modeNumberString+"\\"+"player_"+modeNumberString+"_"+spriteNumberString+".png";
+                spritePath+=modeNumberString+sep+"player_"+modeNumberString+"_"+spriteNumberString+".png";
                 
                 try{
                     if(modeNumber==1){ //Idle
@@ -238,7 +239,8 @@ class Player implements Drawable, Moveable{
             for(int spriteNumber = 1;spriteNumber<=4;spriteNumber++){
                 String modeNumberString = "0"+Integer.toString(modeNumber);
                 String spriteNumberString = "0"+Integer.toString(spriteNumber);
-                String offsetPath = level.getPath()+"\\Sprites\\Player\\"+modeNumberString+"\\"+"offset_"+modeNumberString+"_"+spriteNumberString+".txt";
+                char sep = level.getSep();
+                String offsetPath = level.getPath()+sep+"Sprites"+sep+"Player"+sep+modeNumberString+sep+"offset_"+modeNumberString+"_"+spriteNumberString+".txt";
                 //Get .txt file with the offset information
                 try{
                     int offsetX = 0;

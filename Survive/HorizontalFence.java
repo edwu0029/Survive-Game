@@ -14,6 +14,7 @@ class HorizontalFence extends Defence{
     /*-----Variables for this Horizontal Fence-----*/
     private BufferedImage sprite;
     private String path;
+    private char sep;
 
     /**
      * HorizontalFence
@@ -26,6 +27,7 @@ class HorizontalFence extends Defence{
         //All fences have a maximum health of 300
         super(level, "Horizontal Fence", x, y, 300);
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -35,7 +37,7 @@ class HorizontalFence extends Defence{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Defence\\fence_02.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Defence"+sep+"fence_02.png"));
         }catch(Exception e){
             System.out.println("Could not load horizontal fence sprite");
         }

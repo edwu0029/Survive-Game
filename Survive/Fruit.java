@@ -16,7 +16,11 @@ public class Fruit extends Item{
     private Player player;
     private BufferedImage sprite;
 
+    /*-----Variables for this Fruit-----*/
+    private String path;
+    private char sep;
     private int healAmount;
+    
     /**
      * Fruit
      * A constructor that constructs a fruit item with a specifed level and position
@@ -29,6 +33,10 @@ public class Fruit extends Item{
         this.level = level;
         this.gamePanel = level.getPanelManager().getGamePanel();
         this.player = level.getPlayer();
+        
+        this.path = level.getPath();
+        this.sep = level.getSep();
+
         loadSprites();
         this.healAmount = 100;
         super.setBoundingBox(sprite.getWidth(), sprite.getHeight());
@@ -40,7 +48,7 @@ public class Fruit extends Item{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(level.getPath()+"\\Sprites\\Item\\fruit.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Item"+sep+"fruit.png"));
         }catch(Exception e){
             System.out.println("Error loading fruit sprite");
         }

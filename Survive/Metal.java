@@ -13,6 +13,7 @@ class Metal extends Item{
     /*-----Variables for this metal item-----*/
     private BufferedImage sprite;
     private String path;
+    private char sep;
 
     /**
      * Metal
@@ -24,6 +25,7 @@ class Metal extends Item{
     Metal(Level level, int x, int y){
         super(level, "Metal", x, y);
         this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -33,7 +35,7 @@ class Metal extends Item{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(path+"\\Sprites\\Item\\metal.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Item"+sep+"metal.png"));
         }catch(Exception e){
             System.out.println("Error rock sprite not loaded properly");
         }

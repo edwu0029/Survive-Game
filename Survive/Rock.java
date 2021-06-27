@@ -13,6 +13,8 @@ class Rock extends Item{
     /*-----References to other objects-----*/
     private Level level;
     /*-----Variables for this rock-----*/
+    private String path;
+    private char sep;
     private BufferedImage sprite;
     /**
      * Rock
@@ -24,6 +26,8 @@ class Rock extends Item{
     Rock(Level level, int x, int y){
         super(level, "Rock", x, y);
         this.level = level;
+        this.path = level.getPath();
+        this.sep = level.getSep();
         loadSprites();
         super.setBoundingBox(64, 64);
     }
@@ -33,7 +37,7 @@ class Rock extends Item{
      */
     private void loadSprites(){
         try{
-            sprite = ImageIO.read(new File(level.getPath()+"\\Sprites\\Item\\rock.png"));
+            sprite = ImageIO.read(new File(path+sep+"Sprites"+sep+"Item"+sep+"rock.png"));
         }catch(Exception e){
             System.out.println("Error rock sprite not loaded properly");
         }

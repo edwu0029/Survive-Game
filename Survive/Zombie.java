@@ -24,6 +24,7 @@ class Zombie extends Enemy implements Moveable{
 
     /*-----Variables for this zombie enemy-----*/
     private String path;
+    private char sep;
     private int damage; //The damage this zombie does each attack
     private int moveSpeed;
 
@@ -66,6 +67,7 @@ class Zombie extends Enemy implements Moveable{
         this.level = level;
         this.tileMap = level.getTileMap();
         this.path = level.getPath();
+        this.sep = level.getSep();
         this.player = level.getPlayer();
         //All zombies deal 50 damage per attack
         this.damage = 50;
@@ -124,7 +126,7 @@ class Zombie extends Enemy implements Moveable{
     private void loadSprites(){
         try{
             for(int i = 1;i<=4;i++){
-                String spritePath = path+"Sprites\\Enemy\\Zombie\\zombie_";
+                String spritePath = path+"Sprites"+sep+"Enemy"+sep+"Zombie"+sep+"zombie_";
                 spritePath+="0"+Integer.toString(i)+".png";
                 sprites[i-1] = ImageIO.read(new File(spritePath));
             }

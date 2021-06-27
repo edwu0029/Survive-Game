@@ -34,6 +34,7 @@ class Level{
     
     //Miscanaleous variables
     private String path;
+    private char sep; //Directory seperator character
 
     /**
      * Level
@@ -92,6 +93,13 @@ class Level{
      */
     public void loadPath(){
         try{
+            //Get correct directory seperator
+            if(System.getProperty("os.name").toLowerCase().contains("windows")){
+                sep = '\\';
+            }else{
+                sep = '/';
+            }
+
             String absolutePath;
             File file;
 
@@ -111,6 +119,14 @@ class Level{
      */
     public String getPath(){
         return path;
+    }
+    /**
+     * getSep
+     * Returns the sepecific directory seperator for the OS of this computer.
+     * @return The directory seperator for the OS of this computer.
+     */
+    public char getSep(){
+        return sep;
     }
     /**
      * getMainFrame
