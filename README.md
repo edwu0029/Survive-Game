@@ -1,5 +1,5 @@
-# ICS3U6
-Survive is a 2D Zombie Survival game created entirely using Java and the Java Swing GUI toolkit. This game was created for the final summative assignment of the ICS3U6 course (Grade 11 pre-AP Computer Science).
+# ICS3U
+Survive is a 2D Zombie Survival game created entirely using Java and the Java Swing GUI toolkit. This game was created for the final summative assignment of the ICS3U course (Grade 11 pre-AP Computer Science).
 
 ## Requirements
 - Reqiuires [Java 8](https://www.oracle.com/ca-en/java/technologies/javase/javase-jdk8-downloads.html) or newer.
