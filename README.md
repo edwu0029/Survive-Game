@@ -2,7 +2,7 @@
 Survive is a 2D Zombie Survival game created entirely using Java and the Java Swing GUI toolkit. This game was created for the final summative assignment of the ICS3U course (Grade 11 pre-AP Computer Science).
 
 ## Requirements
-- Reqiuires [Java 8](https://www.oracle.com/ca-en/java/technologies/javase/javase-jdk8-downloads.html) or newer.
+- Requires Java 8 or newer.
 - Requires a screen resolution of at least 1080 pixels x 1080 pixels. This game is not scalable.
 
 ## Usage
